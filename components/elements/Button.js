@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
 
 const StyledButton = styled.button`
   padding: 0.75em 1em;
@@ -51,10 +51,3 @@ const Button = ({ children, onClick, type, styleProp }) => (
 );
 
 export default Button;
-
-Button.propTypes = {
-  children: PropTypes.any,
-  onClick: PropTypes.func,
-  type: PropTypes.string,
-  styleProp: PropTypes.string,
-};
