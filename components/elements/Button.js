@@ -12,6 +12,8 @@ const StyledButton = styled.button`
   font-size: 1.5rem;
   transition: all ease-out 200ms;
   letter-spacing: 1.5px;
+  background-color: ${({ styleProp }) =>
+    styleProp === 'primary' ? 'var(--Primary)' : 'transparent'};
   &:disabled {
     background-color: var(--Disabled);
     pointer-events: none;
@@ -22,20 +24,17 @@ const StyledButton = styled.button`
   ${({ styleProp }) =>
     styleProp === 'primary' &&
     css`
-      background-color: var(--Primary);
       color: var(--OnMidground);
     `};
   ${({ styleProp }) =>
     styleProp === 'secondary' &&
     css`
-      background-color: transparent;
       color: var(--Primary);
       border: 2px solid var(--Primary);
     `};
   ${({ styleProp }) =>
     styleProp === 'naked' &&
     css`
-      background-color: transparent;
       padding: 0;
       color: var(--OnForground);
     `};
@@ -44,7 +43,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ children, onClick, type, styleProp }) => (
+const Button = ({ onClick, type, styleProp, children }) => (
   <StyledButton styleProp={styleProp} type={type} onClick={onClick}>
     {children}
   </StyledButton>
