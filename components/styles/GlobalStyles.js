@@ -35,12 +35,12 @@ html {
 }
 
 h1, h2 {
-  font-family: 'Asar';
+  font-family: 'Asar', Merriweather, Impact, Serif;
   letter-spacing: 0.15rem;
 }
 
 body {
-  font-family: 'Asap';
+  font-family: 'Asap','helvetica', 'arial', sans-serif;
   padding: 0;
   margin: 0;
   font-size: 2rem;
@@ -56,7 +56,7 @@ a:hover {
   text-decoration: underline;
 }
 button {
-  font-family: 'Asap';
+  font-family: 'Asap','helvetica', 'arial', sans-serif;;
 }
 `;
 
