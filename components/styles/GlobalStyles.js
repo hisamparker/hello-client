@@ -23,8 +23,8 @@ const GlobalStyles = createGlobalStyle`
   --Disabled: #E5E5E5;
   --OnDisabled: #666666;
   --DisabledBorder:#8B8B8B;
-  --maxWidth: 1000px;
-  --boxShadow: 0 12px 24px 0 rgba(0,0,0,0.09)
+  --MaxWidth: 1000px;
+  --BoxShadow: 0 12px 24px 0 rgba(0,0,0,0.09)
 }
 *,*:before,*:after {
   box-sizing: inherit;
@@ -35,12 +35,12 @@ html {
 }
 
 h1, h2 {
-  font-family: 'Asar';
+  font-family: 'Asar', Merriweather, Impact, Serif;
   letter-spacing: 0.15rem;
 }
 
 body {
-  font-family: 'Asap';
+  font-family: 'Asap','helvetica', 'arial', sans-serif;
   padding: 0;
   margin: 0;
   font-size: 2rem;
@@ -56,7 +56,7 @@ a:hover {
   text-decoration: underline;
 }
 button {
-  font-family: 'Asap';
+  font-family: 'Asap','helvetica', 'arial', sans-serif;;
 }
 `;
 
