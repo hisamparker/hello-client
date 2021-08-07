@@ -9,7 +9,7 @@ import '../components/styles/nprogress.css';
 import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData';
 import Page from '../components/layout/Page';
-
+import { CartStateProvider } from '../context/cartState';
 // on the event routeChangeStart, start the progress bar
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -31,10 +31,12 @@ function App({ Component, pageProps, apollo }) {
     // {/* a provider is a component that lives very high up in the react tree, it allows components below it to access data (theme provider, context provider etc...) */}
     // apollo provider needs a client prop
     <ApolloProvider client={apollo}>
-      <Page>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <Component {...pageProps} />
-      </Page>
+      <CartStateProvider>
+        <Page>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Component {...pageProps} />
+        </Page>
+      </CartStateProvider>
     </ApolloProvider>
   );
 }
