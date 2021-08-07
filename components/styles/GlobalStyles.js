@@ -23,8 +23,8 @@ const GlobalStyles = createGlobalStyle`
   --Disabled: #E5E5E5;
   --OnDisabled: #666666;
   --DisabledBorder:#8B8B8B;
-  --maxWidth: 1000px;
-  --boxShadow: 0 12px 24px 0 rgba(0,0,0,0.09)
+  --MaxWidth: 1000px;
+  --BoxShadow: 0 12px 24px 0 rgba(0,0,0,0.09)
 }
 *,*:before,*:after {
   box-sizing: inherit;
