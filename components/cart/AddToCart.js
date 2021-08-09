@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import { useMutation, gql } from '@apollo/client';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import useUser, { CURRENT_USER_QUERY } from '../auth/User';
 import { useCart } from '../../context/cartState';
@@ -14,9 +14,10 @@ const ADD_TO_CART_MUTATION = gql`
   }
 `;
 
-export default function AddToCart({ id }) {
+export default function AddToCart({ id, isMatch }) {
   const user = useUser();
   const data = useCart();
+  console.log(isMatch);
   const [addToCart, { loading }] = useMutation(ADD_TO_CART_MUTATION, {
     variables: { id },
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
@@ -33,15 +34,11 @@ export default function AddToCart({ id }) {
   return (
     <Button
       styleProp="primary"
-      disabled={loading}
+      disabled={loading || isMatch}
       type="button"
       onClick={user ? handleAddToCart : handleLoginUser}
     >
-      Add{loading && 'ing'} To Cart
+      {isMatch ? 'Already in Cart' : loading ? 'Adding to Cart' : 'Add to Cart'}
     </Button>
   );
 }
-
-AddToCart.propTypes = {
-  id: PropTypes.string,
-};

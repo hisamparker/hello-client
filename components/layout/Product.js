@@ -5,9 +5,13 @@ import styled from 'styled-components';
 import formatPrice from '../../lib/formatPrice';
 import DeleteProduct from './DeleteProduct';
 import AddToCart from '../cart/AddToCart';
+import useUser from '../auth/User';
 // import ItemStyles from '../styles/ItemStyles';
 
 const Product = ({ product }) => {
+  const user = useUser();
+  const matchCartCacheToItem = (itemId) =>
+    user.cart.some((item) => item.product.id === itemId);
   const productname = product.name;
   return (
     <StyledCard>
@@ -33,7 +37,7 @@ const Product = ({ product }) => {
         >
           Edit
         </Link>
-        <AddToCart id={product.id} />
+        <AddToCart isMatch={matchCartCacheToItem(product.id)} id={product.id} />
         <DeleteProduct id={product.id}>delete</DeleteProduct>
       </div>
     </StyledCard>
