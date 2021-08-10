@@ -38,6 +38,7 @@ export default function AddToCart({ id, isMatch }) {
       type="button"
       onClick={user ? handleAddToCart : handleLoginUser}
     >
+      {/* eslint-disable-next-line no-nested-ternary */}
       {isMatch ? 'Already in Cart' : loading ? 'Adding to Cart' : 'Add to Cart'}
     </Button>
   );
