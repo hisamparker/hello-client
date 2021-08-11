@@ -21,18 +21,19 @@ const Nav = () => {
       <Link href="/products">products</Link>
       {isUser && (
         <>
-          <Link href="/add-product">add-product</Link>
           <Link href="/orders">orders</Link>
           <Link href="/account">account</Link>
           <LogOut setIsUser={setIsUser} />
           <button type="button" onClick={() => data.openCart()}>
-            open cart
-            <CartTally
-              count={user.cart.reduce(
-                (acc, cartItem) => acc + +cartItem.quantity,
-                0
-              )}
-            />
+            view cart
+            {user.cart && (
+              <CartTally
+                count={user.cart.reduce(
+                  (acc, cartItem) => acc + +cartItem.quantity,
+                  0
+                )}
+              />
+            )}
           </button>
         </>
       )}

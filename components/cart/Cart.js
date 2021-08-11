@@ -1,19 +1,13 @@
 import PropTypes from 'prop-types';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import calculateCartTotal from '../../lib/calculateCartTotal';
 import formatPrice from '../../lib/formatPrice';
 import useUser, { CURRENT_USER_QUERY } from '../auth/User';
+import { DELETE_FROM_CART_MUTATION } from '../../lib/api';
 import CartStyles from '../styles/CartStyles';
 import { useCart } from '../../context/cartState';
 import Button from '../elements/Button';
-
-const DELETE_FROM_CART_MUTATION = gql`
-  mutation DELETE_FROM_CART_MUTATION($id: ID!) {
-    deleteCartItem(id: $id) {
-      id
-    }
-  }
-`;
+import { Checkout } from './Checkout';
 
 const CartItem = ({ cartItem }) => {
   const { product } = cartItem;
@@ -65,12 +59,13 @@ const Cart = () => {
         </Button>
         <div>{formatPrice(calculateCartTotal(user.cart))}</div>
         <h2>{user.name}'s cart</h2>
+        <Checkout />
         <ul>
           {user.cart.map((cartItem) => (
             <CartItem cartItem={cartItem} key={cartItem.id} />
           ))}
         </ul>
-        <div>{formatPrice(calculateCartTotal(user.cart))}</div>
+        <div>Total: {formatPrice(calculateCartTotal(user.cart))}</div>
       </article>
     </CartStyles>
   );

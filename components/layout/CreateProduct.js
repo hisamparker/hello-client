@@ -1,37 +1,10 @@
 // The useMutation React hook is the primary API for executing mutations in an Apollo application.
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import Router from 'next/router';
 import useForm from '../../lib/useForm';
 import ErrorMessage from './ErrorMessage';
-import { ALL_PRODUCTS_QUERY } from './Products';
+import { ALL_PRODUCTS_QUERY, CREATE_PRODUCT_MUTATION } from '../../lib/api';
 
-const CREATE_PRODUCT_MUTATION = gql`
-  # we have to name it to make it flexible, a flexible mutation is a mutation that can accept variables / flexible data
-  mutation CREATE_PRODUCT_MUTATION(
-    # all the variables we're going to pass in, ! means required
-    $name: String!
-    $description: String!
-    $price: Int!
-    $image: Upload
-  ) {
-    createProduct(
-      data: {
-        name: $name
-        description: $description
-        price: $price
-        status: "AVAILABLE"
-        # this it's its own type, via a relationship, so we need to nest the creation of the image within our query
-        # so we create the relationship and the image at the same time
-        image: { create: { image: $image, altText: $name } }
-      }
-    ) {
-      id
-      price
-      description
-      name
-    }
-  }
-`;
 // gui with nextjs for creating product in keystone
 export const CreateProduct = () => {
   // custom hook for handling the form

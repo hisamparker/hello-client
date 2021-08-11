@@ -12,9 +12,6 @@ const Header = () => (
       </StyledLogo>
       <Nav />
     </div>
-    <div className="sub-bar">
-      <p>search</p>
-    </div>
     <Cart />
   </StyledHeader>
 );

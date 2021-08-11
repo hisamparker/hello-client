@@ -1,16 +1,7 @@
 import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
 import React from 'react';
 import Button from '../elements/Button';
-
-const DELETE_PRODUCT_MUTATION = gql`
-  mutation DELETE_PRODUCT_MUTATION($id: ID!) {
-    deleteProduct(id: $id) {
-      id
-      name
-    }
-  }
-`;
+import { DELETE_PRODUCT_MUTATION } from '../../lib/api';
 
 // eslint-disable-next-line react/prop-types
 const DeleteProduct = ({ id, children }) => {

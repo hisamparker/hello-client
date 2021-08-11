@@ -1,29 +1,9 @@
 import PropTypes from 'prop-types';
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { PRODUCT_BY_ID_QUERY } from './ProductDetail';
+import { useQuery, useMutation } from '@apollo/client';
+import { PRODUCT_BY_ID_QUERY, UPDATE_PRODUCT_MUTATION } from '../../lib/api';
 import useForm from '../../lib/useForm';
 import ErrorMessage from './ErrorMessage';
 
-const UPDATE_PRODUCT_MUTATION = gql`
-  mutation UPDATE_PRODUCT_MUTATION(
-    # these are the vars we need
-    $id: ID!
-    $name: String
-    $description: String
-    $price: Int
-  ) {
-    updateProduct(
-      #  pass in the vars to perfomr updatePriduct
-      id: $id
-      data: { name: $name, description: $description, price: $price }
-    ) {
-      id
-      name
-      description
-      price
-    }
-  }
-`;
 const UpdateProduct = ({ id }) => {
   // grab the existing product info to populate form
   const { data, loading, error } = useQuery(PRODUCT_BY_ID_QUERY, {
