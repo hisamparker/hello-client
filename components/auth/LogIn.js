@@ -2,7 +2,7 @@ import { useMutation, gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';
 import ErrorMessage from '../layout/ErrorMessage';
-import { CURRENT_USER_QUERY } from './User';
+import { CURRENT_USER_QUERY } from '../../lib/api';
 
 // TODO add sign up button
 
