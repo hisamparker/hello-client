@@ -1,18 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import useUser, { CURRENT_USER_QUERY } from '../auth/User';
 import { useCart } from '../../context/cartState';
+import { ADD_TO_CART_MUTATION } from '../../lib/api';
 import Button from '../elements/Button';
-
-const ADD_TO_CART_MUTATION = gql`
-  mutation ADD_TO_CART_MUTATION($id: ID!) {
-    addToCart(productId: $id) {
-      id
-      quantity
-    }
-  }
-`;
 
 export default function AddToCart({ id, isMatch }) {
   const user = useUser();

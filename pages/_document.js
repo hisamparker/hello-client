@@ -20,7 +20,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en-CA">
         <Head>
-          <meta http-Equiv="content-type" content="text/html; charset=utf-8" />
+          <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"

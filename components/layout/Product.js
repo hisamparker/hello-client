@@ -3,7 +3,6 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import formatPrice from '../../lib/formatPrice';
-import DeleteProduct from './DeleteProduct';
 import AddToCart from '../cart/AddToCart';
 import useUser from '../auth/User';
 // import ItemStyles from '../styles/ItemStyles';
@@ -27,18 +26,7 @@ const Product = ({ product }) => {
         <p>{formatPrice(product.price)}</p>
       </StyledPriceTag>
       <div className="buttonList">
-        <Link
-          href={{
-            pathname: 'update-product',
-            query: {
-              id: product.id,
-            },
-          }}
-        >
-          Edit
-        </Link>
         <AddToCart isMatch={matchCartCacheToItem(product.id)} id={product.id} />
-        <DeleteProduct id={product.id}>delete</DeleteProduct>
       </div>
     </StyledCard>
   );

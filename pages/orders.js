@@ -1,8 +1,9 @@
 import React from 'react';
+import OrdersWithMutation from '../components/layout/OrdersWithMutation';
 
 const orders = () => (
   <div>
-    <p>orders</p>
+    <OrdersWithMutation />
   </div>
 );
 

@@ -5,7 +5,7 @@ import GlobalStyles from '../styles/GlobalStyles';
 import Header from './Header';
 
 const InnerStyles = styled.div`
-  max-width: var(--maxWidth);
+  max-width: var(--MaxWidth);
   margin: 0 auto;
   padding: 2rem;
 `;

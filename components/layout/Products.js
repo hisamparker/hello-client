@@ -1,29 +1,10 @@
-import React, { Fragment } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import React from 'react';
+import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Product from './Product';
 import { perPage } from '../../config';
-
-export const ALL_PRODUCTS_QUERY = gql`
-  # first accepts the var we pass called first, in gqp first is like slice, we pass an int to slice and that says return this number of objects from the query
-  # in the graphql documentation there are other suggestions, but here's what we're using https://www.howtographql.com/graphql-js/8-filtering-pagination-and-sorting/
-  #  TODO ask michael about skip another way? https://www.antstack.io/blog/graphql-pagination-with-apollo-v3-part-1/
-  query ALL_PRODUCTS_QUERY($skip: Int = 0, $first: Int) {
-    allProducts(first: $first, skip: $skip) {
-      id
-      price
-      name
-      description
-      image {
-        id
-        image {
-          publicUrlTransformed
-        }
-      }
-    }
-  }
-`;
+import { ALL_PRODUCTS_QUERY } from '../../lib/api';
 
 const Products = ({ page }) => {
   // hook that sends the query! return data, errors, and if loading, it's reactive so it rerenders on change!

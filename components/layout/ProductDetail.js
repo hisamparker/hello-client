@@ -1,28 +1,8 @@
 // import head to customize anything that would be in the header
 import Head from 'next/head';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
-
-// because we named the page [id] it means anything the matches product/salfdjlasjflajdf will use this page ()
-// we'll get the id for the product via props
-export const PRODUCT_BY_ID_QUERY = gql`
-  query PRODUCT_BY_ID_QUERY($id: ID!) {
-    #   we can rename the product if we do - item: Product
-    Product(where: { id: $id }) {
-      name
-      price
-      description
-      id
-      image {
-        id
-        altText
-        image {
-          publicUrlTransformed
-        }
-      }
-    }
-  }
-`;
+import { PRODUCT_BY_ID_QUERY } from '../../lib/api';
 
 const ProductDetail = ({ id }) => {
   // hook that sends the query! return data, errors, and if loading, it's reactive so it rerenders on change!
