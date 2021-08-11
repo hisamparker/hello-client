@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';
 import ErrorMessage from '../ErrorMessage';
 import { LOG_IN_MUTATION } from './LogIn';
-import { CURRENT_USER_QUERY } from './User';
+import { CURRENT_USER_QUERY } from '../../lib/api';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(

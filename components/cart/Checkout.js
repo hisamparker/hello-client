@@ -17,8 +17,7 @@ import { useState } from 'react';
 import nProgress from 'nprogress';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/dist/client/router';
-import { CURRENT_USER_QUERY } from '../auth/User';
-import { CREATE_ORDER_MUTATION } from '../../lib/api';
+import { CREATE_ORDER_MUTATION, CURRENT_USER_QUERY } from '../../lib/api';
 import { useCart } from '../../context/cartState';
 
 // pass our stripe key into loadStripe, then we'll pass it to the stripe Element provider

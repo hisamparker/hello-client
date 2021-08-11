@@ -1,7 +1,7 @@
 import { useMutation, gql, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types'
-import { CURRENT_USER_QUERY } from './User';
+import PropTypes from 'prop-types';
+import { CURRENT_USER_QUERY } from '../../lib/api';
 
 //  https://keystonejs.com/docs/apis/session
 const LOG_OUT_MUTATION = gql`

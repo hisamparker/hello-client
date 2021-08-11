@@ -13,11 +13,14 @@ const Dot = styled.div`
   font-variant-numeric: tabular-nums;
 `;
 
-const CartTally = ({ count }) => (
-  <>
-    <Dot>{count}</Dot>
-  </>
-);
+const CartTally = ({ count }) => {
+  console.log(count);
+  return (
+    <>
+      <Dot>{count}</Dot>
+    </>
+  );
+};
 
 export default CartTally;
 

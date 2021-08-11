@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
-import useUser, { CURRENT_USER_QUERY } from '../auth/User';
+import useUser from '../auth/User';
 import { useCart } from '../../context/cartState';
-import { ADD_TO_CART_MUTATION } from '../../lib/api';
+import { ADD_TO_CART_MUTATION, CURRENT_USER_QUERY } from '../../lib/api';
 import Button from '../elements/Button';
 
 export default function AddToCart({ id, isMatch }) {

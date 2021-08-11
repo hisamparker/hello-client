@@ -13,6 +13,7 @@ const Pagination = ({ page }) => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error... {error}</p>;
   const { count } = data._allProductsMeta;
+  console.log('!!!!', count);
   const pageCount = Math.ceil(+count / +perPage);
   return (
     <div>
