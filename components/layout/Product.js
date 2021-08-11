@@ -9,9 +9,13 @@ import useUser from '../auth/User';
 
 const Product = ({ product }) => {
   const user = useUser();
-  const matchCartCacheToItem = (itemId) =>
-    user.cart.some((item) => item.product.id === itemId);
-  const productname = product.name;
+  let matchCartCacheToItem;
+  let productname;
+  if (user) {
+    matchCartCacheToItem = (itemId) =>
+      user.cart.some((item) => item.product.id === itemId);
+    productname = product.name;
+  }
   return (
     <StyledCard>
       <img
@@ -20,13 +24,18 @@ const Product = ({ product }) => {
         src={product?.image?.image?.publicUrlTransformed}
       />
       <StyledTitle>
-        <Link href={`/product/${product.id}`}>{productname}</Link>
+        <Link href={`/product/${product.id}`}>
+          {user ? productname : product.name}
+        </Link>
       </StyledTitle>
       <StyledPriceTag>
         <p>{formatPrice(product.price)}</p>
       </StyledPriceTag>
       <div className="buttonList">
-        <AddToCart isMatch={matchCartCacheToItem(product.id)} id={product.id} />
+        <AddToCart
+          isMatch={user && matchCartCacheToItem(product.id)}
+          id={product.id}
+        />
       </div>
     </StyledCard>
   );

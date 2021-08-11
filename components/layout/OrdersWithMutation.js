@@ -4,11 +4,14 @@ import styled from 'styled-components';
 import ErrorMessage from './ErrorMessage';
 import OrderDetail from './OrderDetail';
 import { CURRENT_USER_ORDERS_QUERY } from '../../lib/api';
+import useUser from '../auth/User';
 
 const OrdersWithMutation = () => {
   const { data, error, loading } = useQuery(CURRENT_USER_ORDERS_QUERY);
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage error={error} />;
+  const user = useUser;
+  if (!user) return <p>nope</p>;
   const { orders } = data.authenticatedItem;
   return (
     <>

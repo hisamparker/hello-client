@@ -18,10 +18,9 @@ const Nav = () => {
   }, [user]);
   return (
     <StyledNav>
-      <Link href="/products">products</Link>
+      <Link href="/products">Tutorials</Link>
       {isUser && (
         <>
-          <Link href="/orders">orders</Link>
           <Link href="/account">account</Link>
           <LogOut setIsUser={setIsUser} />
           <button type="button" onClick={() => data.openCart()}>
