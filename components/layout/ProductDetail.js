@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { PRODUCT_BY_ID_QUERY } from '../../lib/api';
 
 const ProductDetail = ({ id }) => {
+  console.log('####', id);
   // hook that sends the query! return data, errors, and if loading, it's reactive so it rerenders on change!
   // we need to pass in the id as a variable... becuase it's a variable
   const { data, error, loading } = useQuery(PRODUCT_BY_ID_QUERY, {

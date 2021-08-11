@@ -17,7 +17,7 @@ const OrdersWithMutation = () => {
           {orders.name} ({orders.length}) orders
         </title>
       </Head>
-      <h2>My dOrders</h2>
+      <h2>My Orders</h2>
       <StyledOrderGrid>
         {orders.map((order) => (
           <>

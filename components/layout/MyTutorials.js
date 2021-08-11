@@ -2,19 +2,23 @@
 import { useQuery } from '@apollo/client';
 import { USER_PRODUCTS_QUERY } from '../../lib/api';
 import ErrorMessage from './ErrorMessage';
+import TutorialDetail from './TutorialDetail';
 
 const MyTutorials = () => {
   const { data, error, loading } = useQuery(USER_PRODUCTS_QUERY);
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage error={error} />;
   const { orders } = data.authenticatedItem;
-  console.log(orders);
+  const tutorialItems = orders.map((order) =>
+    order.items.map((item) => item.product.id)
+  );
+  const tutorials = [...tutorialItems[0], ...tutorialItems[1]];
+  console.log('!!!', tutorials);
   return (
     <>
-      <p>order</p>
-      {/* {tutorials.map((tutorial) => (
-        <ProductDetail id={tutorial.id} key={tutorial.id} />
-      ))} */}
+      {tutorials.map((tutorial) => (
+        <TutorialDetail id={tutorial} key={tutorial} />
+      ))}
     </>
   );
 };

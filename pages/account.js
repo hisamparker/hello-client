@@ -1,8 +1,8 @@
-import React from 'react';
+import Account from '../components/layout/Account';
 
 const account = () => (
   <div>
-    <p>account</p>
+    <Account />
   </div>
 );
 
