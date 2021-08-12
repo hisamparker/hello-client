@@ -9,15 +9,23 @@ const MyTutorials = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage error={error} />;
   const { orders } = data.authenticatedItem;
-  const tutorialItems = orders.map((order) =>
-    order.items.map((item) => item.product.id)
+  const tutorials = orders.map((order) =>
+    order.items.map((item) => ({
+      id: item.product.id,
+      slug: item.product.slug,
+    }))
   );
-  const tutorials = [...tutorialItems[0], ...tutorialItems[1]];
-  console.log('!!!', tutorials);
+  const mergedTutorials = [];
+  tutorials.map((tutorial) => mergedTutorials.push(...tutorial));
+
   return (
     <>
-      {tutorials.map((tutorial) => (
-        <TutorialDetail id={tutorial} key={tutorial} />
+      {mergedTutorials.map((tutorial) => (
+        <TutorialDetail
+          slug={tutorial.slug}
+          id={tutorial.id}
+          key={tutorial.id}
+        />
       ))}
     </>
   );

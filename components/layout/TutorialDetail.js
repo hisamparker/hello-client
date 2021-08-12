@@ -4,8 +4,7 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 import { PRODUCT_BY_ID_QUERY } from '../../lib/api';
 
-const TutorialDetail = ({ id }) => {
-  console.log(id);
+const TutorialDetail = ({ id, slug }) => {
   const { data, error, loading } = useQuery(PRODUCT_BY_ID_QUERY, {
     variables: {
       id,
@@ -21,7 +20,7 @@ const TutorialDetail = ({ id }) => {
         // nested chaining to check if Product exists or image exists
         src={Product?.image?.image?.publicUrlTransformed}
       />
-      <p>{Product.name}</p>
+      <Link href={`/tutorial/${slug}`}>{Product.name}</Link>
       <p>{Product.description}</p>
     </StyledCard>
   );
@@ -59,38 +58,18 @@ const StyledCard = styled.article`
   }
 `;
 
-const StyledTitle = styled.h3`
-  text-align: center;
-  a {
-    display: inline;
-    line-height: 1.3;
-    height: 32px;
-    font-size: 5rem;
-    font-family: 'Asar';
-    font-weight: lighter;
-    text-align: center;
-    color: white;
-  }
-`;
-
-const StyledPriceTag = styled.div`
-  background-color: var(--OnMidground);
-  border: solid 2px var(--Primary);
-  position: absolute;
-  right: 66px;
-  top: 0;
-  transform: translate(50%, -30%);
-
-  /* Center the content */
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  p {
-    padding: 0 1rem;
-    line-height: 1;
-    font-size: 2rem;
-    color: var(--Primary);
-  }
-`;
+// const StyledTitle = styled.h3`
+//   text-align: center;
+//   a {
+//     display: inline;
+//     line-height: 1.3;
+//     height: 32px;
+//     font-size: 5rem;
+//     font-family: 'Asar';
+//     font-weight: lighter;
+//     text-align: center;
+//     color: white;
+//   }
+// `;
 
 export default TutorialDetail;
