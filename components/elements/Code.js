@@ -1,19 +1,22 @@
 /* eslint-disable react/prop-types */
-// import { CopyBlock, dracula } from 'react-code-blocks';
+import { useEffect } from 'react';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
-// const MyCodeComponent = (props) => {
-//   const { text, language, showLineNumbers, startingLineNumber } = props;
-//   console.log(props);
-//   return (
-//     <CopyBlock
-//       text={text}
-//       language={language}
-//       showLineNumbers={showLineNumbers}
-//       startingLineNumber={startingLineNumber}
-//       theme={dracula}
-//       wrapLines
-//     />
-//   );
-// };
+const CodeBlock = ({ code, language }) => {
+  console.log(code, language);
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
+  return (
+    <div className="Code">
+      <pre className="line-numbers">
+        <code className={`language-${language}`}>{code}</code>
+      </pre>
+    </div>
+  );
+};
 
-// export default MyCodeComponent;
+export default CodeBlock;
