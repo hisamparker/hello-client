@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import useForm from '../../lib/useForm';
 import ErrorMessage from '../layout/ErrorMessage';
 import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
@@ -7,6 +8,10 @@ import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
 // TODO add sign up button
 
 const LogIn = () => {
+  const [myError, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
   console.log('q', router.query);
   const { inputs, handleChange, resetForm } = useForm({
@@ -23,7 +28,7 @@ const LogIn = () => {
     e.preventDefault();
     try {
       const res = await logIn();
-      console.log(res);
+      console.log('!!!', res.data.authenticateUserWithPassword);
       resetForm();
       router.push('/');
     } catch (err) {

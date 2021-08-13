@@ -11,7 +11,7 @@ const Product = ({ product }) => {
   const user = useUser();
   let matchCartCacheToItem;
   let productname;
-  if (user) {
+  if (user && user.cart) {
     matchCartCacheToItem = (itemId) =>
       user.cart.some((item) => item.product.id === itemId);
     productname = product.name;

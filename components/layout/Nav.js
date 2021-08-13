@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import useUser from '../auth/User';
@@ -7,21 +6,17 @@ import { useCart } from '../../context/cartState';
 import CartTally from '../cart/CartTally';
 
 const Nav = () => {
-  const [isUser, setIsUser] = useState(false);
   const data = useCart();
   const user = useUser();
 
-  useEffect(() => {
-    setIsUser(user);
-  }, [user]);
   return (
     <StyledNav>
       <Link href="/products">All Tutorials</Link>
-      {isUser ? (
+      {user ? (
         <>
           <Link href="/account">account</Link>
-          <LogOut setIsUser={setIsUser} />
-          {user?.cart.length > 0 && (
+          <LogOut />
+          {user.cart?.length > 0 && (
             <button type="button" onClick={() => data.openCart()}>
               view cart
               {user.cart && (
@@ -38,9 +33,7 @@ const Nav = () => {
       ) : (
         <>
           <Link href="/log-in">Log In</Link>
-          <Link props={setIsUser} href="/sign-up">
-            Sign Up
-          </Link>
+          <Link href="/sign-up">Sign Up</Link>
         </>
       )}
     </StyledNav>
