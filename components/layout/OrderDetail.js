@@ -45,8 +45,8 @@ const OrderDetail = ({ id }) => {
           </p>
         </div>
         {data.Order.items.map((product) => (
-          <StyledOrderItem>
-            <StyledCard key={product.id} product={product}>
+          <StyledOrderItem key={product.id}>
+            <StyledCard product={product}>
               <img
                 alt={product.name}
                 // nested chaining to check if product exists or image exists
@@ -101,7 +101,7 @@ const StyledCard = styled.article`
     top: 0;
     left: 0;
     position: absolute;
-    transform: translate(1rem, 1rem);
+    transform: translate(0.5rem, 0.5rem);
 
     /* Size */
     height: 100%;
@@ -122,6 +122,12 @@ const StyledOrderItem = styled.article`
   justify-content: space-evenly;
   align-items: center;
   margin-top: 2rem;
+  article {
+    width: 30%;
+  }
+  div {
+    width: 60%;
+  }
 `;
 
 export default OrderDetail;

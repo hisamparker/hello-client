@@ -20,11 +20,11 @@ const MyTutorials = () => {
 
   return (
     <>
-      {mergedTutorials.map((tutorial) => (
+      {mergedTutorials.map((tutorial, idx) => (
         <TutorialDetail
           slug={tutorial.slug}
           id={tutorial.id}
-          key={tutorial.id}
+          key={tutorial.id + idx}
         />
       ))}
     </>

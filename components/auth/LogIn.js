@@ -1,28 +1,11 @@
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';
 import ErrorMessage from '../layout/ErrorMessage';
-import { CURRENT_USER_QUERY } from '../../lib/api';
+import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
 
 // TODO add sign up button
 
-export const LOG_IN_MUTATION = gql`
-  mutation LOG_IN_MUTATION($email: String!, $password: String!) {
-    authenticateUserWithPassword(email: $email, password: $password) {
-      ... on UserAuthenticationWithPasswordSuccess {
-        item {
-          id
-          email
-          name
-        }
-      }
-      ... on UserAuthenticationWithPasswordFailure {
-        code
-        message
-      }
-    }
-  }
-`;
 const LogIn = () => {
   const router = useRouter();
   console.log('q', router.query);

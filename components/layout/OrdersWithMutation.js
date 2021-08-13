@@ -22,10 +22,8 @@ const OrdersWithMutation = () => {
       </Head>
       <h2>My Orders</h2>
       <StyledOrderGrid>
-        {orders.map((order) => (
-          <>
-            <OrderDetail id={order.id} key={order.id} />
-          </>
+        {orders.map((order, idx) => (
+          <OrderDetail id={order.id} key={order.id + idx} />
         ))}
       </StyledOrderGrid>
     </>

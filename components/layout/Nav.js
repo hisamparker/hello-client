@@ -12,31 +12,30 @@ const Nav = () => {
   const user = useUser();
 
   useEffect(() => {
-    if (user) {
-      setIsUser(true);
-    }
+    setIsUser(user);
   }, [user]);
   return (
     <StyledNav>
-      <Link href="/products">Tutorials</Link>
-      {isUser && (
+      <Link href="/products">All Tutorials</Link>
+      {isUser ? (
         <>
           <Link href="/account">account</Link>
           <LogOut setIsUser={setIsUser} />
-          <button type="button" onClick={() => data.openCart()}>
-            view cart
-            {user.cart && (
-              <CartTally
-                count={user.cart.reduce(
-                  (acc, cartItem) => acc + +cartItem.quantity,
-                  0
-                )}
-              />
-            )}
-          </button>
+          {user?.cart.length > 0 && (
+            <button type="button" onClick={() => data.openCart()}>
+              view cart
+              {user.cart && (
+                <CartTally
+                  count={user.cart.reduce(
+                    (acc, cartItem) => acc + +cartItem.quantity,
+                    0
+                  )}
+                />
+              )}
+            </button>
+          )}
         </>
-      )}
-      {!isUser && (
+      ) : (
         <>
           <Link href="/log-in">Log In</Link>
           <Link props={setIsUser} href="/sign-up">

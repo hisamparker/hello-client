@@ -1,24 +1,13 @@
 import { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';
 import ErrorMessage from '../ErrorMessage';
-import { LOG_IN_MUTATION } from './LogIn';
-import { CURRENT_USER_QUERY } from '../../lib/api';
-
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION(
-    $email: String!
-    $name: String!
-    $password: String!
-  ) {
-    createUser(data: { email: $email, name: $name, password: $password }) {
-      id
-      email
-      name
-    }
-  }
-`;
+import {
+  CURRENT_USER_QUERY,
+  SIGNUP_MUTATION,
+  LOG_IN_MUTATION,
+} from '../../lib/api';
 
 const SignUp = () => {
   // https://www.howtographql.com/react-apollo/5-authentication/ in tutorial, there's no auto login, I hate this, here's how the graphql docs suggest doing it

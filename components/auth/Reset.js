@@ -1,28 +1,13 @@
 import PropTypes from 'prop-types';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import useForm from '../../lib/useForm';
 import ErrorMessage from '../layout/ErrorMessage';
+import { RESET_MUTATION } from '../../lib/api';
 // TODO create better messaging and redirect
+
 // The mutation redeemUserPasswordResetToken lets the user reset their password by redeeming the token.
 // You need to provide a sendToken function which can be used by sendUserPasswordResetLink to send the generated token to the user.
 // It is expected that you will use these mutations as part of a password reset workflow within your frontend application.
-const RESET_MUTATION = gql`
-  mutation RESET_MUTATION(
-    $email: String!
-    $password: String!
-    $token: String!
-  ) {
-    redeemUserPasswordResetToken(
-      email: $email
-      token: $token
-      password: $password
-    ) {
-      code
-      message
-    }
-  }
-`;
-
 const Reset = ({ token }) => {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',

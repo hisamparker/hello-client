@@ -6,7 +6,6 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
 const CodeBlock = ({ code, language }) => {
-  console.log(code, language);
   useEffect(() => {
     Prism.highlightAll();
   }, []);

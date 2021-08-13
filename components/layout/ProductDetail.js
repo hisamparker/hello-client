@@ -36,8 +36,7 @@ const ProductDetail = ({ id }) => {
       </div>
       <div>{Product.name}</div>
       <div>{Product.price}</div>
-      <div>{Product.descritption}</div>
-      <div>{Product.descritption}</div>
+      <div>{Product.description}</div>
     </article>
   );
 };

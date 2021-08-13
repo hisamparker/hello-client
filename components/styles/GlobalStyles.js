@@ -23,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
   --Disabled: #E5E5E5;
   --OnDisabled: #666666;
   --DisabledBorder:#8B8B8B;
-  --MaxWidth: 1000px;
+  --MaxWidth: 1200px;
   --BoxShadow: 0 12px 24px 0 rgba(0,0,0,0.09)
 }
 *,*:before,*:after {
@@ -34,7 +34,7 @@ html {
   font-size: 62.5%;
 }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: 'Asar', Merriweather, Impact, Serif;
   letter-spacing: 0.15rem;
 }

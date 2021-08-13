@@ -38,12 +38,15 @@ const StyledButton = styled.button`
       padding: 0;
       color: var(--OnForground);
     `};
-  ~ button {
-    margin-left: 1rem;
-  }
 `;
 
-const Button = ({ disabled, onClick, type, styleProp, children }) => (
+const Button = ({
+  disabled,
+  onClick,
+  type = 'button',
+  styleProp,
+  children,
+}) => (
   <StyledButton
     disabled={disabled}
     styleProp={styleProp}

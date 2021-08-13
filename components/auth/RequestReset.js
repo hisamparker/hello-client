@@ -1,21 +1,12 @@
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import useForm from '../../lib/useForm';
 import ErrorMessage from '../ErrorMessage';
+import { REQUEST_RESET_MUTATION } from '../../lib/api';
 
 // keystone offers options for sending password reset to users, we need to handle email sending, they handle the token creating and redemption
 // The mutation sendUserPasswordResetLink allows you to send a reset token to a user.
 // We must set this option up in the keystone config when we create auth: https://keystonejs.com/docs/apis/auth
-const REQUEST_RESET_MUTATION = gql`
-  mutation REQUEST_RESET_MUTATION($email: String!) {
-    #   we pass a single value, email
-    sendUserPasswordResetLink(email: $email) {
-      # we retrieve a code a message if not successful
-      # do not EVER put this in browser
-      code
-      message
-    }
-  }
-`;
+
 // the stuff returned from sendUserPasswordResetLink looks like
 // itemId: '61923804830924h',
 // identity: 'emailthatisentered@toreset.com',
@@ -64,6 +55,6 @@ const RequestReset = () => {
       </fieldset>
     </form>
   );
-}
+};
 
 export default RequestReset;
