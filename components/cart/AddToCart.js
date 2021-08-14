@@ -5,18 +5,22 @@ import useUser from '../auth/User';
 import { useCart } from '../../context/cartState';
 import { ADD_TO_CART_MUTATION, CURRENT_USER_QUERY } from '../../lib/api';
 import Button from '../elements/Button';
+import { useSnackbar } from '../../context/snackbarState';
 
-export default function AddToCart({ id, isMatch }) {
+const AddToCart = ({ id, isMatch }) => {
+  const snackbar = useSnackbar();
   const user = useUser();
   const data = useCart();
-  console.log(isMatch);
   const [addToCart, { loading }] = useMutation(ADD_TO_CART_MUTATION, {
     variables: { id },
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   const router = useRouter();
   const handleLoginUser = () => {
-    // TODO toast that says you must be logged in
+    snackbar.setSnackbarMessage('You need to log in to add items to your cart');
+    snackbar.setSnackbarType('info');
+    snackbar.openSnackbar();
+    snackbar.setCloseButton(true);
     router.push('/log-in');
   };
   const handleAddToCart = () => {
@@ -34,4 +38,5 @@ export default function AddToCart({ id, isMatch }) {
       {isMatch ? 'Already in Cart' : loading ? 'Adding to Cart' : 'Add to Cart'}
     </Button>
   );
-}
+};
+export default AddToCart;

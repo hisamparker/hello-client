@@ -1,8 +1,12 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { CURRENT_USER_QUERY, LOG_OUT_MUTATION } from '../../lib/api';
+import { useSnackbar } from '../../context/snackbarState';
+import useUser from './User';
 
 const LogOut = () => {
+  const user = useUser();
+  const snackbar = useSnackbar();
   const router = useRouter();
   const update = (cache) => {
     cache.gc();
@@ -14,10 +18,28 @@ const LogOut = () => {
   });
 
   const handleLogOut = () => {
-    logOut();
-    // this is not in the tutorial but without it the cache won't clear and the nav bar won't reset to show logged out view until refresh
-    // https://stackoverflow.com/questions/48887480/reset-store-after-logout-with-apollo-client
-    router.push('/');
+    try {
+      logOut();
+      snackbar.setSnackbarMessage(`Later ${user.name}`);
+      snackbar.setSnackbarType('success');
+      snackbar.openSnackbar();
+      snackbar.setCloseButton(false);
+      router.push('/');
+      let timer = '';
+      new Promise(() => {
+        timer = setTimeout(() => {
+          snackbar.closeSnackbar();
+        }, 3000);
+      }).then(() => () => clearTimeout(timer));
+    } catch (err) {
+      snackbar.setSnackbarMessage(
+        'Something went wrong, please try logging out again.'
+      );
+      snackbar.setSnackbarType('error');
+      snackbar.openSnackbar();
+      snackbar.setCloseButton(true);
+      console.log(err);
+    }
   };
 
   return (

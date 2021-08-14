@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import GlobalStyles from '../styles/GlobalStyles';
 import Header from './Header';
+import Snackbar from './Snackbar';
+import { useSnackbar } from '../../context/snackbarState';
 
 const InnerStyles = styled.div`
   background-color: #e5e5e5;
@@ -10,13 +12,23 @@ const InnerStyles = styled.div`
   padding: 2rem;
 `;
 
-const Page = ({ children }) => (
-  <div>
-    <GlobalStyles />
-    <Header />
-    <InnerStyles>{children}</InnerStyles>
-  </div>
-);
+const Page = ({ children }) => {
+  const snackbar = useSnackbar();
+  return (
+    <div>
+      <Snackbar
+        isOpen={snackbar.snackbarOpen}
+        styleProp={snackbar.snackbarType}
+        message={snackbar.snackbarMessage}
+        dismissOnClick={snackbar.closeSnackbar}
+        closeButton={snackbar.closeButton}
+      />
+      <GlobalStyles />
+      <Header />
+      <InnerStyles>{children}</InnerStyles>
+    </div>
+  );
+};
 
 Page.propTypes = {
   //  for children, proptype is an array of nodes

@@ -19,6 +19,7 @@ import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/dist/client/router';
 import { CREATE_ORDER_MUTATION, CURRENT_USER_QUERY } from '../../lib/api';
 import { useCart } from '../../context/cartState';
+import { useSnackbar } from '../../context/snackbarState';
 
 // pass our stripe key into loadStripe, then we'll pass it to the stripe Element provider
 // we call loadStripe outside of component so that we don't call it on everyrender
@@ -26,7 +27,7 @@ import { useCart } from '../../context/cartState';
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 const CheckoutForm = () => {
-  const [error, setError] = useState();
+  const snackbar = useSnackbar();
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -52,10 +53,20 @@ const CheckoutForm = () => {
       });
       console.log(paymentMethod);
       if (error) {
-        setError(error);
+        snackbar.setSnackbarMessage(error.message);
+        snackbar.setSnackbarType('error');
+        snackbar.openSnackbar();
+        snackbar.setCloseButton(true);
         nProgress.done(); // stops progress bar
         return; // stops the checkout from happening if there's an error
-        // TODO: error messaging
+      }
+      if (graphQLError) {
+        snackbar.setSnackbarMessage(graphQLError.message);
+        snackbar.setSnackbarType('error');
+        snackbar.openSnackbar();
+        snackbar.setCloseButton(true);
+        nProgress.done(); // stops progress bar
+        return; // stops the checkout from happening if there's an error
       }
       // Send the token from step 3 to our keystone server, via a custom mutation! we need to pass our token here, cuz that's when we have access to it
       const order = await checkout({
@@ -63,9 +74,6 @@ const CheckoutForm = () => {
           token: paymentMethod.id,
         },
       });
-      //   TODO success message
-      console.log(`Finished order!`);
-      console.log(order);
       // Push to order page
       router.push({
         pathname: `/order/[id]`,
@@ -75,8 +83,17 @@ const CheckoutForm = () => {
       });
       closeCart();
       setLoading(false);
-      // stop showing progress bar as moving
       nProgress.done();
+      snackbar.setSnackbarMessage(`Yay! Time to learn!`);
+      snackbar.setSnackbarType('success');
+      snackbar.openSnackbar();
+      snackbar.setCloseButton(false);
+      let timer = '';
+      new Promise(() => {
+        timer = setTimeout(() => {
+          snackbar.closeSnackbar();
+        }, 3000);
+      }).then(() => () => clearTimeout(timer));
     } catch (err) {
       console.log(err);
     }
@@ -84,8 +101,6 @@ const CheckoutForm = () => {
 
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
-      {error && <p style={{ fontSize: 12 }}>{error.message}</p>}
-      {graphQLError && <p style={{ fontSize: 12 }}>{graphQLError.message}</p>}
       <CardElement />
       <button disabled={loading} type="submit">
         Check Out Now

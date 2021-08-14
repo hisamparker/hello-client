@@ -3,10 +3,12 @@ import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';
 import ErrorMessage from '../layout/ErrorMessage';
 import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
+import { useSnackbar } from '../../context/snackbarState';
 
 // TODO add sign up button
 
 const LogIn = () => {
+  const snackbar = useSnackbar();
   const router = useRouter();
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
@@ -22,10 +24,28 @@ const LogIn = () => {
     e.preventDefault();
     try {
       const res = await logIn();
-      console.log('!!!', res.data.authenticateUserWithPassword.item.name);
       resetForm();
       router.push('/my-tutorials');
+      snackbar.setSnackbarMessage(
+        `Hey! ${res.data.authenticateUserWithPassword.item.name}`
+      );
+      snackbar.setSnackbarType('success');
+      snackbar.openSnackbar();
+      snackbar.setCloseButton(false);
+      console.log(res);
+      let timer = '';
+      new Promise(() => {
+        timer = setTimeout(() => {
+          snackbar.closeSnackbar();
+        }, 3000);
+      }).then(() => () => clearTimeout(timer));
     } catch (err) {
+      snackbar.setSnackbarMessage(
+        'Something went wrong, please try logging out again.'
+      );
+      snackbar.setSnackbarType('error');
+      snackbar.openSnackbar();
+      snackbar.setCloseButton(true);
       console.error(err.message);
       resetForm();
     }

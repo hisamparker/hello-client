@@ -8,8 +8,10 @@ import {
   SIGNUP_MUTATION,
   LOG_IN_MUTATION,
 } from '../../lib/api';
+import { useSnackbar } from '../../context/snackbarState';
 
 const SignUp = () => {
+  const snackbar = useSnackbar();
   // https://www.howtographql.com/react-apollo/5-authentication/ in tutorial, there's no auto login, I hate this, here's how the graphql docs suggest doing it
   const [isLoggedInUser, setIsLoggedInUser] = useState({
     email: '',
@@ -36,7 +38,6 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // stop the form from submitting
     try {
-      console.log(inputs);
       const res = await signup().catch(console.error);
       console.log(res);
       console.log({ data, loading, error });
@@ -44,13 +45,30 @@ const SignUp = () => {
         email: inputs.email,
         password: inputs.password,
       });
-      console.log(isLoggedInUser);
       resetForm();
       login();
       // TODO add success messaging either before redirecting (with a set timeout) or set messaging on the Page componnent so it shows everywhere and add success and fail to context or pass it up
       router.push('/');
       // Send the email and password to the graphqlAPI
+      snackbar.setSnackbarMessage(
+        `Hey! welcome to hello tutorials ${inputs.name}`
+      );
+      snackbar.setSnackbarType('success');
+      snackbar.openSnackbar();
+      snackbar.setCloseButton(false);
+      console.log(res);
+      let timer = '';
+      new Promise(() => {
+        timer = setTimeout(() => {
+          snackbar.closeSnackbar();
+        }, 3000);
+      }).then(() => () => clearTimeout(timer));
     } catch (err) {
+      snackbar.setSnackbarMessage('Something went wrong, please try again.');
+      snackbar.setSnackbarType('error');
+      snackbar.openSnackbar();
+      snackbar.setCloseButton(true);
+      resetForm();
       console.log(err);
     }
   };

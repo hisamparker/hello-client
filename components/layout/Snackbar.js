@@ -3,7 +3,9 @@ import styled, { css } from 'styled-components';
 
 const Modal = styled.section`
   position: fixed;
+  z-index: 1000;
   width: 100vw;
+  height: 200px;
   transform: translate(-50%, -100%);
   text-align: center;
   padding: 2rem 1rem;
@@ -12,17 +14,22 @@ const Modal = styled.section`
   left: 50%;
   top: 0;
   color: white;
-  font-size: 1.25rem;
+  font-size: 2rem;
   letter-spacing: 0.05em;
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      top: 0px;
+      transform: translate(-50%, 0);
+      transition: all 0.45s ease-in;
+    `}
   ${({ styleProp }) =>
     styleProp === 'success' &&
     css`
       background-color: var(--Primary)};
       color: var(--OnMidground)};
       border-bottom: 2px solid var(--PrimaryLight);
-      top: 0px;
-      transform: translate(-50%, 0);
-      transition: all 0.45s ease-in;
+    
     `}
   ${({ styleProp }) =>
     styleProp === 'error' &&
@@ -30,9 +37,13 @@ const Modal = styled.section`
       background-color: var(--ErrorLight);
       border-bottom: 2px solid var(--Error);
       color: var(--OnErrorLight)};
-      top: 0px;
-      transform: translate(-50%, 0);
-      transition: all 0.45s ease-in;
+    `}
+  ${({ styleProp }) =>
+    styleProp === 'info' &&
+    css`
+      background-color: var(--AccentLight);
+      border-bottom: 2px solid var(--Accent);
+      color: var(--OnAccent)};
     `}
   ${({ styleProp }) =>
     styleProp === 'hidden' &&
@@ -71,15 +82,21 @@ const CloseBtn = styled.button`
   }
 `;
 
-const Toast = ({ styleProp, dismissOnClick, children }) => (
-  <Modal styleProp={styleProp}>
-    {dismissOnClick && (
+const Snackbar = ({
+  closeButton,
+  isOpen,
+  styleProp,
+  dismissOnClick,
+  message,
+}) => (
+  <Modal isOpen={isOpen} styleProp={styleProp}>
+    {closeButton && (
       <CloseBtn name="button" onClick={dismissOnClick}>
         close
       </CloseBtn>
     )}
-    {children}
+    {message}
   </Modal>
 );
 
-export default Toast;
+export default Snackbar;
