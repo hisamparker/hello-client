@@ -35,18 +35,10 @@ const StyledLogo = styled.h1`
 const StyledHeader = styled.header`
   margin-bottom: 2rem;
   .bar {
-    border-bottom: 10px solid var(--Primary, black);
     display: grid;
     grid-template-columns: auto 1fr;
     justify-content: space-between;
     align-items: center;
-  }
-  .sub-bar {
-    border-bottom: 1px solid var(--Primary, black);
-    display: grid;
-    grid-template-columns: auto 1fr;
-    background-color: var(--Foreground);
-    color: var(--onForeground);
   }
 `;
 

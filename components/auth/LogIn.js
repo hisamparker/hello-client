@@ -1,6 +1,5 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import useForm from '../../lib/useForm';
 import ErrorMessage from '../layout/ErrorMessage';
 import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
@@ -8,12 +7,7 @@ import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
 // TODO add sign up button
 
 const LogIn = () => {
-  const [myError, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
-  console.log('q', router.query);
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
     password: '',
@@ -28,9 +22,9 @@ const LogIn = () => {
     e.preventDefault();
     try {
       const res = await logIn();
-      console.log('!!!', res.data.authenticateUserWithPassword);
+      console.log('!!!', res.data.authenticateUserWithPassword.item.name);
       resetForm();
-      router.push('/');
+      router.push('/my-tutorials');
     } catch (err) {
       console.error(err.message);
       resetForm();
@@ -42,7 +36,6 @@ const LogIn = () => {
     'UserAuthenticationWithPasswordFailure'
       ? data.authenticateUserWithPassword
       : undefined;
-
   return (
     // we MUST specify post here otherwise the password shows up in the params
     <form method="POST" onSubmit={handleSubmit}>
