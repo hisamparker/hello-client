@@ -11,18 +11,23 @@ const OrdersWithMutation = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage error={error} />;
   const user = useUser;
-  if (!user) return <p>nope</p>;
-  const { orders } = data.authenticatedItem;
+  if (!user) return <p>Hey, you need to be logged in to view your orders!</p>;
+  let orderData;
+  if (data.authenticatedItem) {
+    const { orders } = data.authenticatedItem;
+    orderData = orders;
+  }
+  if (orderData.length <= 0) return <p>You don't have any orders yet!</p>;
   return (
     <>
       <Head>
         <title>
-          {orders.name} ({orders.length}) orders
+          {orderData.name} ({orderData.length}) orders
         </title>
       </Head>
       <h2>My Orders</h2>
       <StyledOrderGrid>
-        {orders.map((order, idx) => (
+        {orderData.map((order, idx) => (
           <OrderDetail id={order.id} key={order.id + idx} />
         ))}
       </StyledOrderGrid>

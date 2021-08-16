@@ -17,9 +17,9 @@ const OrderDetail = ({ id }) => {
       id,
     },
   });
-  console.log({ error }, { loading }, { data });
   // if you navigate here via products, you'll get a loading === true because we need to fetch the data, but if you
   // refresh the page, you'll fetch from the data cache so the render happens on the client side and there's no load time (thanks apollo)
+  // TODO error and loading
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
   // this needs to go after loading, otherwise js will try to destructure before data exists!

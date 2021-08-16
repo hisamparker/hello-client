@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { PRODUCT_BY_ID_QUERY } from '../../lib/api';
 
 const ProductDetail = ({ id }) => {
-  console.log('####', id);
   // hook that sends the query! return data, errors, and if loading, it's reactive so it rerenders on change!
   // we need to pass in the id as a variable... becuase it's a variable
   const { data, error, loading } = useQuery(PRODUCT_BY_ID_QUERY, {
@@ -13,14 +12,13 @@ const ProductDetail = ({ id }) => {
       id,
     },
   });
-  console.log({ error }, { loading }, { data });
   // if you navigate here via products, you'll get a loading === true because we need to fetch the data, but if you
   // refresh the page, you'll fetch from the data cache so the render happens on the client side and there's no load time (thanks apollo)
+  // TODO lodaing and error
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
   // this needs to go after loading, otherwise js will try to destructure before data exists!
   const { Product } = data;
-  console.log('prod', Product);
   return (
     <article>
       <Head>

@@ -16,6 +16,7 @@ const Page = ({ children }) => {
   const snackbar = useSnackbar();
   return (
     <div>
+      <GlobalStyles />
       <Snackbar
         isOpen={snackbar.snackbarOpen}
         styleProp={snackbar.snackbarType}
@@ -23,7 +24,6 @@ const Page = ({ children }) => {
         dismissOnClick={snackbar.closeSnackbar}
         closeButton={snackbar.closeButton}
       />
-      <GlobalStyles />
       <Header />
       <InnerStyles>{children}</InnerStyles>
     </div>

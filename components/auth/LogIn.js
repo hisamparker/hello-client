@@ -1,7 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';
-import ErrorMessage from '../layout/ErrorMessage';
 import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
 import { useSnackbar } from '../../context/snackbarState';
 
@@ -15,7 +14,7 @@ const LogIn = () => {
     password: '',
   });
   // login is the function we get back from useMutation
-  const [logIn, { data, loading }] = useMutation(LOG_IN_MUTATION, {
+  const [logIn, { loading }] = useMutation(LOG_IN_MUTATION, {
     variables: inputs,
     // we also want to refetch the currently logged in user
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
@@ -24,15 +23,19 @@ const LogIn = () => {
     e.preventDefault();
     try {
       const res = await logIn();
+      if (
+        res.data.authenticateUserWithPassword.__typename ===
+        'UserAuthenticationWithPasswordSuccess'
+      ) {
+        router.push('/my-tutorials');
+      }
       resetForm();
-      router.push('/my-tutorials');
       snackbar.setSnackbarMessage(
         `Hey! ${res.data.authenticateUserWithPassword.item.name}`
       );
       snackbar.setSnackbarType('success');
       snackbar.openSnackbar();
       snackbar.setCloseButton(false);
-      console.log(res);
       let timer = '';
       new Promise(() => {
         timer = setTimeout(() => {
@@ -41,7 +44,7 @@ const LogIn = () => {
       }).then(() => () => clearTimeout(timer));
     } catch (err) {
       snackbar.setSnackbarMessage(
-        'Something went wrong, please try logging out again.'
+        'Something went wrong, please try logging in again.'
       );
       snackbar.setSnackbarType('error');
       snackbar.openSnackbar();
@@ -51,15 +54,15 @@ const LogIn = () => {
     }
   };
 
-  const error =
-    data?.authenticateUserWithPassword.__typename ===
-    'UserAuthenticationWithPasswordFailure'
-      ? data.authenticateUserWithPassword
-      : undefined;
+  // const error =
+  //   data?.authenticateUserWithPassword.__typename ===
+  //   'UserAuthenticationWithPasswordFailure'
+  //     ? data.authenticateUserWithPassword
+  //     : undefined;
+
   return (
     // we MUST specify post here otherwise the password shows up in the params
     <form method="POST" onSubmit={handleSubmit}>
-      <ErrorMessage error={error} />
       <fieldset>
         <label htmlFor="email">
           Email

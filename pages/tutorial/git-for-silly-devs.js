@@ -1,6 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 import styled from 'styled-components';
-import CodeBlock from '../../components/elements/Code';
+import Code from '../../components/elements/Code';
 
 const gitTutorial = () => {
   const code = `let text = "";
@@ -133,9 +133,9 @@ for (i = 0; i < 5; i++) {
           any).
         </p>
         <h3>Syntax:</h3>
-        <CodeBlock language="markup" code="break;" />
+        <Code language="markup" code="break;" />
         <h3>Example:</h3>
-        <CodeBlock language="js" code={code} />
+        <Code language="js" code={code} />
         <p>The loop will stop when the variable i is equal to 3.</p>
         <h2>Continue</h2>
         <p>
@@ -143,12 +143,14 @@ for (i = 0; i < 5; i++) {
           next. Use continue combined with a condition.
         </p>
         <h3>Example:</h3>
-        <CodeBlock language="js" code={code2} />
+        <Code language="js" code={code2} />
         <p>Loops through a block of code, but skips multiple of 3.</p>
       </StyledContent>
     </StyledGridContainer>
   );
 };
+
+export default gitTutorial;
 
 const StyledGridContainer = styled.section`
   margin: 0 auto;
@@ -207,4 +209,3 @@ const StyledContent = styled.article`
   border-radius: 5rem;
   border: 1px solid var(--PrimaryDark);
 `;
-export default gitTutorial;

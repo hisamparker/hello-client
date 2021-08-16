@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';
-import ErrorMessage from '../ErrorMessage';
 import {
   CURRENT_USER_QUERY,
   SIGNUP_MUTATION,
@@ -38,7 +37,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // stop the form from submitting
     try {
-      const res = await signup().catch(console.error);
+      const res = await signup();
       console.log(res);
       console.log({ data, loading, error });
       setIsLoggedInUser({
@@ -64,7 +63,9 @@ const SignUp = () => {
         }, 3000);
       }).then(() => () => clearTimeout(timer));
     } catch (err) {
-      snackbar.setSnackbarMessage('Something went wrong, please try again.');
+      snackbar.setSnackbarMessage(
+        'Something went wrong, please check your info and try again.'
+      );
       snackbar.setSnackbarType('error');
       snackbar.openSnackbar();
       snackbar.setCloseButton(true);
@@ -75,7 +76,6 @@ const SignUp = () => {
   return (
     <form method="POST" onSubmit={handleSubmit}>
       <h2>Sign Up For an Account</h2>
-      <ErrorMessage error={error} />
       <fieldset>
         {data?.createUser && (
           <p>Signed up with {data.createUser.email}, yay!</p>

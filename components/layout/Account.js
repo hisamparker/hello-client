@@ -6,14 +6,16 @@ import MyTutorials from './MyTutorials';
 
 const Account = () => {
   const user = useUser();
-  console.log(user);
-  return (
-    <div>
+  return !user ? (
+    <p>Hey, you don't have an account, why you here?</p>
+  ) : (
+    <article>
+      <h1>Hello {user.name}</h1>
       <UserDetail user={user} />
-      <MyTutorials />
       <RequestReset />
+      <MyTutorials />
       <OrdersWithMutation />
-    </div>
+    </article>
   );
 };
 

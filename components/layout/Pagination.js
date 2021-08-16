@@ -9,7 +9,7 @@ import { PRODUCT_NUMBER_QUERY } from '../../lib/api';
 // exporting this so we can use it in paginationField set up for deleting cache when a product is deleted
 const Pagination = ({ page }) => {
   const { error, loading, data } = useQuery(PRODUCT_NUMBER_QUERY);
-  // TODO go over all of these and create loader and messaging
+  // TODO go over all of these and create loader and messaging and error
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error... {error}</p>;
   const { count } = data._allProductsMeta;

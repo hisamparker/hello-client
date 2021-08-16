@@ -5,6 +5,7 @@ import ErrorMessage from './ErrorMessage';
 import TutorialDetail from './TutorialDetail';
 
 const MyTutorials = () => {
+  // TODO change error and loading
   const { data, error, loading } = useQuery(USER_PRODUCTS_QUERY);
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage error={error} />;

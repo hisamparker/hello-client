@@ -6,7 +6,7 @@ import { useCart } from '../../context/cartState';
 import CartTally from '../cart/CartTally';
 
 const Nav = () => {
-  const data = useCart();
+  const cart = useCart();
   const user = useUser();
 
   return (
@@ -17,7 +17,7 @@ const Nav = () => {
           <Link href="/account">account</Link>
           <LogOut />
           {user.cart?.length > 0 && (
-            <button type="button" onClick={() => data.openCart()}>
+            <button type="button" onClick={() => cart.openCart()}>
               view cart
               {user.cart && (
                 <CartTally

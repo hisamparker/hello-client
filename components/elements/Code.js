@@ -5,7 +5,7 @@ import 'prismjs/themes/prism-tomorrow.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
-const CodeBlock = ({ code, language }) => {
+const Code = ({ code, language }) => {
   useEffect(() => {
     Prism.highlightAll();
   }, []);
@@ -18,4 +18,4 @@ const CodeBlock = ({ code, language }) => {
   );
 };
 
-export default CodeBlock;
+export default Code;

@@ -2,19 +2,32 @@ import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useQuery } from '@apollo/client';
 import formatPrice from '../../lib/formatPrice';
 import AddToCart from '../cart/AddToCart';
 import useUser from '../auth/User';
+import { USER_TUTORIALS_QUERY } from '../../lib/api';
 // import ItemStyles from '../styles/ItemStyles';
 
 const Product = ({ product }) => {
   const user = useUser();
+  const { data: tutorialData, error, loading } = useQuery(USER_TUTORIALS_QUERY);
+  // TODO go over all of these and create loader and messaging and error
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error... {error}</p>;
   let matchCartCacheToItem;
   let productname;
   if (user && user.cart) {
     matchCartCacheToItem = (itemId) =>
+      // if the array (cart) contains an object with a value that matches the itemId, return true, then pass ismatch to addtccart component and if true, add to cart is disabled for that item
       user.cart.some((item) => item.product.id === itemId);
     productname = product.name;
+  }
+  let alreadyPurchased;
+  if (user && tutorialData.authenticatedItem) {
+    alreadyPurchased = tutorialData.authenticatedItem.tutorials.some(
+      (tutorial) => tutorial.product.id === product.id
+    );
   }
   return (
     <StyledCard>
@@ -25,7 +38,7 @@ const Product = ({ product }) => {
       />
       <StyledTitle>
         <Link href={`/product/${product.id}`}>
-          {user ? productname : product.name}
+          <a>{user ? productname : product.name}</a>
         </Link>
       </StyledTitle>
       <StyledPriceTag>
@@ -35,6 +48,8 @@ const Product = ({ product }) => {
         <AddToCart
           isMatch={user && matchCartCacheToItem(product.id)}
           id={product.id}
+          purchased={alreadyPurchased}
+          slug={product.slug}
         />
       </div>
     </StyledCard>
