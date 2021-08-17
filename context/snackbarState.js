@@ -10,7 +10,7 @@ function SnackbarStateProvider({ children }) {
 
   // Closed snackbar by default
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('hidden');
+  const [snackbarMessage, setSnackbarMessage] = useState(false);
   const [snackbarType, setSnackbarType] = useState('');
   const [closeButton, setCloseButton] = useState(false);
 

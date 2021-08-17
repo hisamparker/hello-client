@@ -14,6 +14,7 @@ const Nav = () => {
       <Link href="/products">All Tutorials</Link>
       {user ? (
         <>
+          <Link href="/my-tutorials">my tutorials</Link>
           <Link href="/account">account</Link>
           <LogOut />
           {user.cart?.length > 0 && (

@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import Product from './Product';
 import { perPage } from '../../config';
 import { ALL_PRODUCTS_QUERY } from '../../lib/api';
@@ -33,12 +33,15 @@ const Products = ({ page }) => {
 
 const StyledProductGrid = styled.section`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 6rem;
+  max-height: 100%;
+  max-width: 95%;
+  justify-items: stretch;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 5rem;
+  margin-top: 3rem;
+  @media (max-width: 810px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export default Products;
-
-Products.propTypes = {
-  page: PropTypes.number,
-};

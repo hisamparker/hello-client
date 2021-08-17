@@ -4,23 +4,28 @@ import { USER_PRODUCTS_QUERY } from '../../lib/api';
 import ErrorMessage from './ErrorMessage';
 import TutorialDetail from './TutorialDetail';
 
-const MyTutorials = () => {
+const MyTutorials = ({ classProp, children }) => {
   // TODO change error and loading
   const { data, error, loading } = useQuery(USER_PRODUCTS_QUERY);
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage error={error} />;
-  const { orders } = data.authenticatedItem;
-  const tutorials = orders.map((order) =>
-    order.items.map((item) => ({
-      id: item.product.id,
-      slug: item.product.slug,
-    }))
-  );
   const mergedTutorials = [];
-  tutorials.map((tutorial) => mergedTutorials.push(...tutorial));
-
+  const getTutorials = () => {
+    const { orders } = data.authenticatedItem;
+    const tutorials = orders.map((order) =>
+      order.items.map((item) => ({
+        id: item.product.id,
+        slug: item.product.slug,
+      }))
+    );
+    tutorials.map((tutorial) => mergedTutorials.push(...tutorial));
+  };
+  if (data.authenticatedItem) {
+    getTutorials();
+  }
   return (
-    <>
+    <article className={classProp}>
+      {children}
       {mergedTutorials.map((tutorial, idx) => (
         <TutorialDetail
           slug={tutorial.slug}
@@ -28,7 +33,7 @@ const MyTutorials = () => {
           key={tutorial.id + idx}
         />
       ))}
-    </>
+    </article>
   );
 };
 

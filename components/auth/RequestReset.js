@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useMutation } from '@apollo/client';
 import useForm from '../../lib/useForm';
 import { REQUEST_RESET_MUTATION } from '../../lib/api';
@@ -12,7 +13,7 @@ import { useSnackbar } from '../../context/snackbarState';
 // identity: 'emailthatisentered@toreset.com',
 // token '2mzFdfgljldfjgldjlskg'
 
-const RequestReset = () => {
+const RequestReset = ({ classProp }) => {
   const snackbar = useSnackbar();
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
@@ -49,24 +50,26 @@ const RequestReset = () => {
     }
   };
   return (
-    <form method="POST" onSubmit={handleSubmit}>
-      <h2>Request a Password Reset</h2>
-      <fieldset>
-        <label htmlFor="email">
-          Email
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email Address"
-            autoComplete="email"
-            value={inputs.email}
-            onChange={handleChange}
-            disabled={loading}
-          />
-        </label>
-        <button type="submit">Request Reset!</button>
-      </fieldset>
-    </form>
+    <article className={classProp}>
+      <form method="POST" onSubmit={handleSubmit}>
+        <h2>Request a Password Reset</h2>
+        <fieldset>
+          <label htmlFor="email">
+            Email
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email Address"
+              autoComplete="email"
+              value={inputs.email}
+              onChange={handleChange}
+              disabled={loading}
+            />
+          </label>
+          <button type="submit">Request Reset!</button>
+        </fieldset>
+      </form>
+    </article>
   );
 };
 

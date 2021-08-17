@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import useUser from '../auth/User';
 import OrdersWithMutation from './OrdersWithMutation';
 import UserDetail from './UserDetail';
@@ -9,14 +10,55 @@ const Account = () => {
   return !user ? (
     <p>Hey, you don't have an account, why you here?</p>
   ) : (
-    <article>
-      <h1>Hello {user.name}</h1>
-      <UserDetail user={user} />
-      <RequestReset />
-      <MyTutorials />
-      <OrdersWithMutation />
-    </article>
+    <StyledContainer>
+      <StyledTitle>Hello {user.name}</StyledTitle>
+      <UserDetail user={user} classProp="account" />
+      <RequestReset classProp="password" />
+      <MyTutorials classProp="tutorials">
+        <h2>My Tutorials</h2>
+      </MyTutorials>
+      <OrdersWithMutation notPage classProp="orders" />
+    </StyledContainer>
   );
 };
+
+const StyledTitle = styled.h1`
+  text-transform: capitalize;
+  font-size: 4rem;
+  margin-bottom: 0;
+`;
+
+const StyledContainer = styled.article`
+  color: var(--PrimaryDark);
+  display: grid;
+  max-height: 100%;
+  max-width: 95%;
+  grid-gap: 4rem;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'title title'
+    'account password'
+    'tutorials tutorials'
+    'orders orders';
+  h1 {
+    grid-area: title;
+  }
+  h2 {
+    margin-top: 0;
+  }
+  .account {
+    grid-area: account;
+  }
+  .password {
+    grid-area: password;
+  }
+  .tutorials {
+    grid-area: tutorials;
+  }
+  .orders {
+    grid-area: orders;
+  }
+`;
 
 export default Account;

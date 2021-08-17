@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { perPage } from '../../config';
 import { PRODUCT_NUMBER_QUERY } from '../../lib/api';
@@ -15,42 +15,90 @@ const Pagination = ({ page }) => {
   const { count } = data._allProductsMeta;
   const pageCount = Math.ceil(+count / +perPage);
   return (
-    <div>
+    <>
       <Head>
         {/* now the tab will say exactly what's in the title instead of just something random */}
         <title>
           hello tutorials || Page {page} of {pageCount}
         </title>
       </Head>
-      <Link href={`/products/${page - 1}`}>
-        <StyledA disabled={page <= 1} aria-disabled={page <= 1}>
-          back
-        </StyledA>
-      </Link>
-      <p>
-        page {page} of {pageCount}
-      </p>
-      <p>{count} items in total</p>
-      <Link href={`/products/${page + 1}`}>
-        <StyledA disabled={page >= pageCount} aria-disabled={page >= pageCount}>
-          next
-        </StyledA>
-      </Link>
-    </div>
+      <StyledContainer>
+        <Link href={`/products/${page - 1}`}>
+          <StyledA
+            className="back"
+            disabled={page <= 1}
+            aria-disabled={page <= 1}
+          >
+            back
+          </StyledA>
+        </Link>
+        <p className="page">
+          Page {page} of {pageCount} ({count} items total)
+        </p>
+        <Link href={`/products/${page + 1}`}>
+          <StyledA
+            className="next"
+            disabled={page >= pageCount}
+            aria-disabled={page >= pageCount}
+          >
+            next
+          </StyledA>
+        </Link>
+      </StyledContainer>
+    </>
   );
 };
 
 export default Pagination;
 
 const StyledA = styled.a`
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
   ${(props) =>
     props.disabled &&
     css`
       color: gray;
       pointer-events: none;
     `}
+  &:hover,
+  &:focus {
+    border: 0;
+    text-decoration: none;
+  }
+  &:hover::after,
+  &:focus::after {
+    text-decoration: none;
+    content: '';
+    border-bottom: 2px solid var(--Primary);
+    position: absolute;
+    width: 20%;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
 `;
-
-Pagination.propTypes = {
-  page: PropTypes.any,
-};
+const StyledContainer = styled.section`
+  color: var(--PrimaryDark);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-areas: 'back page next';
+  align-items: center;
+  text-align: center;
+  .back {
+    grid-area: back;
+  }
+  .next {
+    grid-area: next;
+  }
+  .page {
+    grid-area: page;
+  }
+  @media (max-width: 615px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'page page'
+      'back next';
+  }
+`;

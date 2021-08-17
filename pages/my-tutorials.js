@@ -1,9 +1,10 @@
-import React from 'react';
+import MyTutorials from '../components/layout/MyTutorials';
 
-const MyTutorials = () => (
-  <div>
-    <p>mytutorials</p>
-  </div>
+const myTutorialsPage = () => (
+  <section>
+    <h1>My Tutorials</h1>
+    <MyTutorials />
+  </section>
 );
 
-export default MyTutorials;
+export default myTutorialsPage;

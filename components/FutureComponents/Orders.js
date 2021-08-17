@@ -1,16 +1,17 @@
+/* eslint-disable react/prop-types */
 import useUser from '../auth/User';
-import OrderDetail from './OrderDetail';
+import OrderDetail from '../layout/OrderDetail';
 
-const Orders = () => {
+const Orders = ({ classProp }) => {
   const user = useUser();
   return (
-    <>
+    <article className={classProp}>
       {user && user.orders ? (
         user.orders.map((order) => <OrderDetail id={order.id} key={order.id} />)
       ) : (
         <p>No Orders yet</p>
       )}
-    </>
+    </article>
   );
 };
 
