@@ -6,23 +6,36 @@ import Cart from '../cart/Cart';
 
 const Header = () => (
   <StyledHeader>
-    <div className="bar">
-      <StyledLogo>
-        <Link href="/">hello</Link>
-      </StyledLogo>
-      <Nav />
-    </div>
+    {/* <div className="bar"> */}
+    <StyledLogo>
+      <Link href="/">hello</Link>
+    </StyledLogo>
+    <Nav />
+    {/* </div> */}
     <Cart />
   </StyledHeader>
 );
 
+const StyledHeader = styled.header`
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 750px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+`;
 const StyledLogo = styled.h1`
   background-color: var(--Background);
   font-size: 5rem;
   margin-left: 2rem;
   position: relative;
-  z-index: 2;
-  transform: skew(-7deg);
   a {
     text-decoration: none;
     text-transform: uppercase;
@@ -30,15 +43,8 @@ const StyledLogo = styled.h1`
     color: var(--Primary);
     font-family: 'Asar';
   }
-`;
-
-const StyledHeader = styled.header`
-  margin-bottom: 2rem;
-  .bar {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    justify-content: space-between;
-    align-items: center;
+  @media (max-width: 750px) {
+    margin: 2rem 1rem 0;
   }
 `;
 

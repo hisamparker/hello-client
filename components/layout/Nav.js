@@ -4,6 +4,7 @@ import useUser from '../auth/User';
 import LogOut from '../auth/LogOut';
 import { useCart } from '../../context/cartState';
 import CartTally from '../cart/CartTally';
+import AccountDropdown from '../elements/AccountDropdown';
 
 const Nav = () => {
   const cart = useCart();
@@ -11,15 +12,17 @@ const Nav = () => {
 
   return (
     <StyledNav>
-      <Link href="/products">All Tutorials</Link>
       {user ? (
-        <>
-          <Link href="/my-tutorials">my tutorials</Link>
-          <Link href="/account">account</Link>
-          <LogOut />
+        <section>
+          <AccountDropdown>
+            <Link href="/my-tutorials">my tutorials</Link>
+            <Link href="/products">tutorials</Link>
+            <Link href="/account">account</Link>
+            <LogOut />
+          </AccountDropdown>
           {user.cart?.length > 0 && (
-            <button type="button" onClick={() => cart.openCart()}>
-              view cart
+            <button id="cart" type="button" onClick={() => cart.openCart()}>
+              cart
               {user.cart && (
                 <CartTally
                   count={user.cart.reduce(
@@ -30,12 +33,21 @@ const Nav = () => {
               )}
             </button>
           )}
-        </>
+        </section>
       ) : (
-        <>
-          <Link href="/log-in">Log In</Link>
-          <Link href="/sign-up">Sign Up</Link>
-        </>
+        <section>
+          <Link href="/products">
+            <a id="tutorialsLink" className="loggedOut">
+              tutorials
+            </a>
+          </Link>
+          <Link href="/log-in">
+            <a className="loggedOut">log in</a>
+          </Link>
+          <Link href="/sign-up">
+            <a className="loggedOut">sign up</a>
+          </Link>
+        </section>
       )}
     </StyledNav>
   );
@@ -44,11 +56,20 @@ const Nav = () => {
 const StyledNav = styled.nav`
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-self: end;
-  font-size: 2rem;
+  section {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 2rem;
+  }
+  .loggedOut {
+    @media (max-width: 750px) {
+      justify-content: flex-start;
+      margin-left: 1rem;
+    }
+  }
   a,
   button {
+    color: var(--Primary);
     text-decoration: none;
     padding: 1rem 3rem 0;
     display: flex;
@@ -59,10 +80,13 @@ const StyledNav = styled.nav`
     background: none;
     border: 0;
     cursor: pointer;
-    @media (max-width: 700px) {
-      font-size: 10px;
-      padding: 0 10px;
+    @media (max-width: 750px) {
+      padding: 0 1rem;
+      letter-spacing: 0.1rem;
     }
+  }
+  a.loggedOut,
+  b.loggedOut {
     &:hover,
     &:focus {
       border: 0;
@@ -80,11 +104,19 @@ const StyledNav = styled.nav`
       transform: translate(-50%, 0);
     }
   }
-  @media (max-width: 1300px) {
-    border-top: 1px solid var(--lightGray);
-    width: 100%;
-    justify-content: center;
-    font-size: 1.5rem;
+  #tutorialsLink {
+    @media (max-width: 390px) {
+      display: none;
+    }
+  }
+  #cart {
+    border: 2px solid var(--Primary);
+    border-radius: 50px;
+    margin-left: 2rem;
+    &:hover,
+    &:focus {
+      background-color: var(--PrimaryLight);
+    }
   }
 `;
 
