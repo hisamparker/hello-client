@@ -100,10 +100,10 @@ const StyledLoggedOutA = styled.a`
   &:hover,
   &:focus {
     text-decoration: none;
+    outline: none;
   }
   &:hover::after,
   &:focus::after {
-    text-decoration: none;
     content: '';
     border-bottom: 2px solid var(--Primary);
     position: absolute;
@@ -115,7 +115,7 @@ const StyledLoggedOutA = styled.a`
   @media (max-width: 750px) {
     padding: 0 1rem;
     letter-spacing: 0.1rem;
-    justify-content: flex-start;
+    text-align: left;
     margin-left: 1rem;
   }
 `;

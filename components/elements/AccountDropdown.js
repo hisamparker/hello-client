@@ -56,6 +56,7 @@ const StyledMenu = styled.section`
     &:focus {
       background-color: var(--Accent);
       text-decoration: none;
+      outline: none;
     }
     &:hover::after,
     &:focus::after {
