@@ -11,17 +11,23 @@ const Nav = () => {
   const user = useUser();
 
   return (
-    <StyledNav>
+    <section>
       {user ? (
-        <section>
+        <StyledNav>
           <AccountDropdown>
-            <Link href="/my-tutorials">my tutorials</Link>
-            <Link href="/products">tutorials</Link>
-            <Link href="/account">account</Link>
+            <Link href="/my-tutorials">
+              <StyledA role="listitem">my tutorials</StyledA>
+            </Link>
+            <Link href="/products">
+              <StyledA role="listitem">tutorials</StyledA>
+            </Link>
+            <Link href="/account">
+              <StyledA role="listitem">account</StyledA>
+            </Link>
             <LogOut />
           </AccountDropdown>
           {user.cart?.length > 0 && (
-            <button id="cart" type="button" onClick={() => cart.openCart()}>
+            <StyledCartButton onClick={() => cart.openCart()}>
               cart
               {user.cart && (
                 <CartTally
@@ -31,92 +37,91 @@ const Nav = () => {
                   )}
                 />
               )}
-            </button>
+            </StyledCartButton>
           )}
-        </section>
+        </StyledNav>
       ) : (
-        <section>
+        <StyledNav>
           <Link href="/products">
-            <a id="tutorialsLink" className="loggedOut">
-              tutorials
-            </a>
+            <TutorialsLink tutorialsLink>tutorials</TutorialsLink>
           </Link>
           <Link href="/log-in">
-            <a className="loggedOut">log in</a>
+            <StyledLoggedOutA>log in</StyledLoggedOutA>
           </Link>
           <Link href="/sign-up">
-            <a className="loggedOut">sign up</a>
+            <StyledLoggedOutA>sign up</StyledLoggedOutA>
           </Link>
-        </section>
+        </StyledNav>
       )}
-    </StyledNav>
+    </section>
   );
 };
 
 const StyledNav = styled.nav`
-  margin: 0;
-  padding: 0;
-  section {
-    display: flex;
-    justify-content: flex-end;
-    font-size: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2rem;
+  padding-right: 1rem;
+`;
+
+const StyledCartButton = styled.button`
+  color: var(--Primary);
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 2rem;
+  background: none;
+  padding: 1rem;
+  border: 2px solid var(--Primary);
+  border-radius: 50px;
+  margin: 0 2rem;
+  &:hover,
+  &:focus {
+    background-color: var(--PrimaryLight);
   }
-  .loggedOut {
-    @media (max-width: 750px) {
-      justify-content: flex-start;
-      margin-left: 1rem;
-    }
-  }
-  a,
-  button {
-    color: var(--Primary);
+`;
+
+const StyledA = styled.a`
+  text-transform: uppercase;
+`;
+
+const StyledLoggedOutA = styled.a`
+  color: var(--Primary);
+  border-bottom: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 2rem;
+  background: none;
+  padding: 1rem 3rem 0;
+  &:hover,
+  &:focus {
     text-decoration: none;
-    padding: 1rem 3rem 0;
-    display: flex;
-    align-items: center;
-    position: relative;
-    text-transform: uppercase;
-    font-size: 2rem;
-    background: none;
-    border: 0;
-    cursor: pointer;
-    @media (max-width: 750px) {
-      padding: 0 1rem;
-      letter-spacing: 0.1rem;
-    }
   }
-  a.loggedOut,
-  b.loggedOut {
-    &:hover,
-    &:focus {
-      border: 0;
-      text-decoration: none;
-    }
-    &:hover::after,
-    &:focus::after {
-      text-decoration: none;
-      content: '';
-      border-bottom: 2px solid var(--Primary);
-      position: absolute;
-      width: 60%;
-      bottom: 0;
-      left: 50%;
-      transform: translate(-50%, 0);
-    }
+  &:hover::after,
+  &:focus::after {
+    text-decoration: none;
+    content: '';
+    border-bottom: 2px solid var(--Primary);
+    position: absolute;
+    width: 60%;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
-  #tutorialsLink {
-    @media (max-width: 390px) {
-      display: none;
-    }
+  @media (max-width: 750px) {
+    padding: 0 1rem;
+    letter-spacing: 0.1rem;
+    justify-content: flex-start;
+    margin-left: 1rem;
   }
-  #cart {
-    border: 2px solid var(--Primary);
-    border-radius: 50px;
-    margin-left: 2rem;
-    &:hover,
-    &:focus {
-      background-color: var(--PrimaryLight);
-    }
+`;
+const TutorialsLink = styled(StyledLoggedOutA)`
+  @media (max-width: 390px) {
+    display: none;
   }
 `;
 

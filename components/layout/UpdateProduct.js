@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { PRODUCT_BY_ID_QUERY, UPDATE_PRODUCT_MUTATION } from '../../lib/api';
 import useForm from '../../lib/useForm';
 import ErrorMessage from './ErrorMessage';
+import Loader from '../elements/Loader';
 
 const UpdateProduct = ({ id }) => {
   // grab the existing product info to populate form
@@ -20,7 +21,7 @@ const UpdateProduct = ({ id }) => {
   console.log(updateData);
   // if you navigate here via products, you'll get a loading === true because we need to fetch the data, but if you
   // refresh the page, you'll fetch from the data cache so the render happens on the client side and there's no load time (thanks apollo)
-  if (loading || updateLoading) return <p>Loading...</p>;
+  if (loading || updateLoading) return <Loader />;
   // this needs to go after loading, otherwise js will try to destructure before data exists!
   //   const { Product } = data;
   const handleSubmitProduct = async (e) => {

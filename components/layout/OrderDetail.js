@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 // import head to customize anything that would be in the header
 import Head from 'next/head';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import formatPrice from '../../lib/formatPrice';
 import { ORDER_BY_ID_QUERY } from '../../lib/api';
+import Loader from '../elements/Loader';
 
 // because we named the page [id] it means anything the matches product/salfdjlasjflajdf will use this page ()
 // we'll get the id for the product via props
@@ -20,7 +20,7 @@ const OrderDetail = ({ id }) => {
   // if you navigate here via products, you'll get a loading === true because we need to fetch the data, but if you
   // refresh the page, you'll fetch from the data cache so the render happens on the client side and there's no load time (thanks apollo)
   // TODO error and loading
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error...</p>;
   // this needs to go after loading, otherwise js will try to destructure before data exists!
   const { Order } = data;

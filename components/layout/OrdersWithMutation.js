@@ -6,11 +6,12 @@ import ErrorMessage from './ErrorMessage';
 import { CURRENT_USER_ORDERS_QUERY } from '../../lib/api';
 import useUser from '../auth/User';
 import OrderDetail from './OrderDetail';
+import Loader from '../elements/Loader';
 
 const OrdersWithMutation = ({ notPage, classProp }) => {
   const { data, error, loading } = useQuery(CURRENT_USER_ORDERS_QUERY);
   const user = useUser();
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <ErrorMessage error={error} />;
   if (!user) return <p>Hey, you need to be logged in to view your orders!</p>;
   let orderData;

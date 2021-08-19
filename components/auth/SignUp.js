@@ -8,6 +8,13 @@ import {
   LOG_IN_MUTATION,
 } from '../../lib/api';
 import { useSnackbar } from '../../context/snackbarState';
+import Button from '../elements/Button';
+import {
+  StyledForm,
+  StyledFieldset,
+  StyledLabel,
+  StyledInput,
+} from '../styles/Form';
 
 const SignUp = () => {
   const snackbar = useSnackbar();
@@ -22,7 +29,7 @@ const SignUp = () => {
     name: '',
     password: '',
   });
-  const [signup, { data, loading, error }] = useMutation(SIGNUP_MUTATION, {
+  const [signup, { data }] = useMutation(SIGNUP_MUTATION, {
     variables: inputs,
   });
 
@@ -38,30 +45,29 @@ const SignUp = () => {
     e.preventDefault(); // stop the form from submitting
     try {
       const res = await signup();
-      console.log(res);
-      console.log({ data, loading, error });
-      setIsLoggedInUser({
-        email: inputs.email,
-        password: inputs.password,
-      });
-      resetForm();
-      login();
-      // TODO add success messaging either before redirecting (with a set timeout) or set messaging on the Page componnent so it shows everywhere and add success and fail to context or pass it up
-      router.push('/');
-      // Send the email and password to the graphqlAPI
-      snackbar.setSnackbarMessage(
-        `Hey! welcome to hello tutorials ${inputs.name}`
-      );
-      snackbar.setSnackbarType('success');
-      snackbar.openSnackbar();
-      snackbar.setCloseButton(false);
-      console.log(res);
-      let timer = '';
-      new Promise(() => {
-        timer = setTimeout(() => {
-          snackbar.closeSnackbar();
-        }, 3000);
-      }).then(() => () => clearTimeout(timer));
+      if (res.data.createUser.__typename === 'User') {
+        setIsLoggedInUser({
+          email: inputs.email,
+          password: inputs.password,
+        });
+        resetForm();
+        login();
+        // TODO add success messaging either before redirecting (with a set timeout) or set messaging on the Page componnent so it shows everywhere and add success and fail to context or pass it up
+        router.push('/');
+        // Send the email and password to the graphqlAPI
+        snackbar.setSnackbarMessage(
+          `Hey! welcome to hello tutorials ${inputs.name}`
+        );
+        snackbar.setSnackbarType('success');
+        snackbar.openSnackbar();
+        snackbar.setCloseButton(false);
+        let timer = '';
+        new Promise(() => {
+          timer = setTimeout(() => {
+            snackbar.closeSnackbar();
+          }, 3000);
+        }).then(() => () => clearTimeout(timer));
+      }
     } catch (err) {
       snackbar.setSnackbarMessage(
         'Something went wrong, please check your info and try again.'
@@ -70,19 +76,18 @@ const SignUp = () => {
       snackbar.openSnackbar();
       snackbar.setCloseButton(true);
       resetForm();
-      console.log(err);
     }
   };
   return (
-    <form method="POST" onSubmit={handleSubmit}>
+    <StyledForm method="POST" onSubmit={handleSubmit}>
       <h2>Sign Up For an Account</h2>
-      <fieldset>
+      <StyledFieldset>
         {data?.createUser && (
           <p>Signed up with {data.createUser.email}, yay!</p>
         )}
-        <label htmlFor="email">
+        <StyledLabel htmlFor="email">
           Your Name
-          <input
+          <StyledInput
             type="text"
             name="name"
             placeholder="Your Name"
@@ -90,10 +95,10 @@ const SignUp = () => {
             value={inputs.name}
             onChange={handleChange}
           />
-        </label>
-        <label htmlFor="email">
+        </StyledLabel>
+        <StyledLabel htmlFor="email">
           Email
-          <input
+          <StyledInput
             type="email"
             name="email"
             placeholder="Your Email Address"
@@ -101,10 +106,10 @@ const SignUp = () => {
             value={inputs.email}
             onChange={handleChange}
           />
-        </label>
-        <label htmlFor="password">
+        </StyledLabel>
+        <StyledLabel htmlFor="password">
           Password
-          <input
+          <StyledInput
             type="password"
             name="password"
             placeholder="Password"
@@ -112,10 +117,12 @@ const SignUp = () => {
             value={inputs.password}
             onChange={handleChange}
           />
-        </label>
-        <button type="submit">Sign In!</button>
-      </fieldset>
-    </form>
+        </StyledLabel>
+        <Button styleProp="primary" type="submit">
+          Sign In!
+        </Button>
+      </StyledFieldset>
+    </StyledForm>
   );
 };
 

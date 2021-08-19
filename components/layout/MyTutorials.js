@@ -3,11 +3,12 @@ import { useQuery } from '@apollo/client';
 import { USER_PRODUCTS_QUERY } from '../../lib/api';
 import ErrorMessage from './ErrorMessage';
 import TutorialDetail from './TutorialDetail';
+import Loader from '../elements/Loader';
 
 const MyTutorials = ({ classProp, children }) => {
   // TODO change error and loading
   const { data, error, loading } = useQuery(USER_PRODUCTS_QUERY);
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <ErrorMessage error={error} />;
   const mergedTutorials = [];
   const getTutorials = () => {

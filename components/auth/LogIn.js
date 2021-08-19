@@ -3,6 +3,13 @@ import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';
 import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
 import { useSnackbar } from '../../context/snackbarState';
+import Button from '../elements/Button';
+import {
+  StyledForm,
+  StyledFieldset,
+  StyledLabel,
+  StyledInput,
+} from '../styles/Form';
 
 // TODO add sign up button
 
@@ -19,6 +26,7 @@ const LogIn = () => {
     // we also want to refetch the currently logged in user
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -29,19 +37,18 @@ const LogIn = () => {
       ) {
         router.push('/my-tutorials');
       }
+      if (
+        res.data.authenticateUserWithPassword.__typename ===
+        'UserAuthenticationWithPasswordFailure'
+      ) {
+        snackbar.setSnackbarMessage(
+          'Something went wrong, please try logging in again.'
+        );
+        snackbar.setSnackbarType('error');
+        snackbar.openSnackbar();
+        snackbar.setCloseButton(true);
+      }
       resetForm();
-      snackbar.setSnackbarMessage(
-        `Hey! ${res.data.authenticateUserWithPassword.item.name}`
-      );
-      snackbar.setSnackbarType('success');
-      snackbar.openSnackbar();
-      snackbar.setCloseButton(false);
-      let timer = '';
-      new Promise(() => {
-        timer = setTimeout(() => {
-          snackbar.closeSnackbar();
-        }, 3000);
-      }).then(() => () => clearTimeout(timer));
     } catch (err) {
       snackbar.setSnackbarMessage(
         'Something went wrong, please try logging in again.'
@@ -49,24 +56,18 @@ const LogIn = () => {
       snackbar.setSnackbarType('error');
       snackbar.openSnackbar();
       snackbar.setCloseButton(true);
-      console.error(err.message);
       resetForm();
     }
   };
 
-  // const error =
-  //   data?.authenticateUserWithPassword.__typename ===
-  //   'UserAuthenticationWithPasswordFailure'
-  //     ? data.authenticateUserWithPassword
-  //     : undefined;
-
   return (
     // we MUST specify post here otherwise the password shows up in the params
-    <form method="POST" onSubmit={handleSubmit}>
-      <fieldset>
-        <label htmlFor="email">
+    <StyledForm method="POST" onSubmit={handleSubmit}>
+      <h2>Log In</h2>
+      <StyledFieldset>
+        <StyledLabel htmlFor="email">
           Email
-          <input
+          <StyledInput
             type="email"
             name="email"
             placeholder="Email"
@@ -75,10 +76,10 @@ const LogIn = () => {
             value={inputs.email}
             onChange={handleChange}
           />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input
+        </StyledLabel>
+        <StyledLabel htmlFor="password">
+          <div>Password</div>
+          <StyledInput
             type="password"
             name="password"
             placeholder="Password"
@@ -87,12 +88,12 @@ const LogIn = () => {
             value={inputs.password}
             onChange={handleChange}
           />
-        </label>
-        <button disabled={loading} type="submit">
-          Sign the heck in
-        </button>
-      </fieldset>
-    </form>
+        </StyledLabel>
+        <Button styleProp="primary" disabled={loading} type="submit">
+          Log in
+        </Button>
+      </StyledFieldset>
+    </StyledForm>
   );
 };
 

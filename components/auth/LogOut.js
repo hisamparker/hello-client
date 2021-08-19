@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 import { CURRENT_USER_QUERY, LOG_OUT_MUTATION } from '../../lib/api';
 import { useSnackbar } from '../../context/snackbarState';
 import useUser from './User';
@@ -8,23 +9,20 @@ const LogOut = () => {
   const user = useUser();
   const snackbar = useSnackbar();
   const router = useRouter();
-  const update = (cache) => {
-    cache.gc();
-  };
+
   const [logOut] = useMutation(LOG_OUT_MUTATION, {
     // we refetch so that we rerender
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
-    update,
   });
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     try {
-      logOut();
+      await logOut();
+      router.push('/');
       snackbar.setSnackbarMessage(`Later ${user.name}`);
       snackbar.setSnackbarType('success');
       snackbar.openSnackbar();
       snackbar.setCloseButton(false);
-      router.push('/');
       let timer = '';
       new Promise(() => {
         timer = setTimeout(() => {
@@ -38,15 +36,42 @@ const LogOut = () => {
       snackbar.setSnackbarType('error');
       snackbar.openSnackbar();
       snackbar.setCloseButton(true);
-      console.log(err);
     }
   };
 
   return (
-    <button onClick={handleLogOut} type="button">
+    <StyledLogout onClick={handleLogOut} type="button">
       Log Out
-    </button>
+    </StyledLogout>
   );
 };
+
+const StyledLogout = styled.button`
+  color: var(--Primary);
+  text-decoration: none;
+  padding: 1rem 3rem 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 2rem;
+  background: none;
+  border: 0;
+  &:hover::after,
+  &:focus::after {
+    text-decoration: none;
+    content: '';
+    border-bottom: 2px solid var(--Primary);
+    position: absolute;
+    width: 60%;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  @media (max-width: 750px) {
+    padding: 0 1rem;
+    letter-spacing: 0.1rem;
+  }
+`;
 
 export default LogOut;

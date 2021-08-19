@@ -51,12 +51,16 @@ body {
 a {
   text-decoration: none;
   color: var(--Primary);
-}
-a:hover {
+  &:hover, &:focus {
   text-decoration: underline;
+  cursor: pointer;
+  }
 }
 button {
-  font-family: 'Asap','helvetica', 'arial', sans-serif;;
+  font-family: 'Asap','helvetica', 'arial', sans-serif;
+  &:hover, &:focus {
+    cursor: pointer;
+  }
 }
 `;
 

@@ -1,7 +1,13 @@
+/* eslint-disable react/prop-types */
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
-const Dot = styled.div`
+const CartTally = ({ count }) => (
+  <>
+    <Dot>{count}</Dot>
+  </>
+);
+
+const Dot = styled.section`
   background: var(--Primary);
   color: var(--OnMidground);
   border-radius: 50%;
@@ -13,17 +19,4 @@ const Dot = styled.div`
   font-variant-numeric: tabular-nums;
 `;
 
-const CartTally = ({ count }) => {
-  console.log(count);
-  return (
-    <>
-      <Dot>{count}</Dot>
-    </>
-  );
-};
-
 export default CartTally;
-
-CartTally.propTypes = {
-  count: PropTypes.number,
-};

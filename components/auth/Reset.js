@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';
@@ -50,8 +49,6 @@ const Reset = ({ token }) => {
       snackbar.openSnackbar();
       snackbar.setCloseButton(true);
       resetForm();
-      console.log(err);
-      console.log(error);
     }
   };
   return (
@@ -92,7 +89,3 @@ const Reset = ({ token }) => {
 };
 
 export default Reset;
-
-Reset.propTypes = {
-  token: PropTypes.string,
-};

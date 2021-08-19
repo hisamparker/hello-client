@@ -65,7 +65,10 @@
   "eslintConfig": {
     "extends": [
       "wesbos"
-    ]
+    ],
+    "rules": {
+      "react/prop-types": "off"
+    }
   },
   "jest": {
     "setupFilesAfterEnv": [

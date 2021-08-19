@@ -18,34 +18,23 @@ const Header = () => (
 
 const StyledHeader = styled.header`
   padding: 0 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   display: grid;
   grid-template-columns: 1fr 2fr;
   justify-content: space-between;
-  align-items: center;
-  @media (max-width: 750px) {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: baseline;
+  align-items: baseline;
+  @media (max-width: 575px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-items: start;
   }
 `;
 const StyledLogo = styled.h1`
-  background-color: var(--Background);
   font-size: 5rem;
   margin-left: 2rem;
   position: relative;
-  a {
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 0.5rem 1rem;
-    color: var(--Primary);
-    font-family: 'Asar';
-  }
-  @media (max-width: 750px) {
-    margin: 2rem 1rem 0;
-  }
+  text-transform: uppercase;
+  margin: 2rem 1rem 0;
 `;
 
 export default Header;

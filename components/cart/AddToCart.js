@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';

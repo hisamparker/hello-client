@@ -1,8 +1,14 @@
-/* eslint-disable react/prop-types */
 import { useMutation } from '@apollo/client';
 import useForm from '../../lib/useForm';
 import { REQUEST_RESET_MUTATION } from '../../lib/api';
 import { useSnackbar } from '../../context/snackbarState';
+import Button from '../elements/Button';
+import {
+  StyledForm,
+  StyledFieldset,
+  StyledLabel,
+  StyledInput,
+} from '../styles/Form';
 
 // keystone offers options for sending password reset to users, we need to handle email sending, they handle the token creating and redemption
 // The mutation sendUserPasswordResetLink allows you to send a reset token to a user.
@@ -24,7 +30,6 @@ const RequestReset = ({ classProp }) => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault(); // stop the form from submitting
-      console.log(inputs);
       const res = await signup();
       resetForm();
       snackbar.setSnackbarMessage(
@@ -46,17 +51,16 @@ const RequestReset = ({ classProp }) => {
       snackbar.openSnackbar();
       snackbar.setCloseButton(true);
       resetForm();
-      console.log(err, error);
     }
   };
   return (
     <article className={classProp}>
-      <form method="POST" onSubmit={handleSubmit}>
+      <StyledForm method="POST" onSubmit={handleSubmit}>
         <h2>Request a Password Reset</h2>
-        <fieldset>
-          <label htmlFor="email">
+        <StyledFieldset>
+          <StyledLabel htmlFor="email">
             Email
-            <input
+            <StyledInput
               type="email"
               name="email"
               placeholder="Your Email Address"
@@ -65,10 +69,12 @@ const RequestReset = ({ classProp }) => {
               onChange={handleChange}
               disabled={loading}
             />
-          </label>
-          <button type="submit">Request Reset!</button>
-        </fieldset>
-      </form>
+          </StyledLabel>
+          <Button styleProp="primary" type="submit">
+            Request Reset!
+          </Button>
+        </StyledFieldset>
+      </StyledForm>
     </article>
   );
 };

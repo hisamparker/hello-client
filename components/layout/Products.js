@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Product from './Product';
 import { perPage } from '../../config';
 import { ALL_PRODUCTS_QUERY } from '../../lib/api';
+import Loader from '../elements/Loader';
 
 const Products = ({ page }) => {
   // hook that sends the query! return data, errors, and if loading, it's reactive so it rerenders on change!
@@ -18,7 +19,7 @@ const Products = ({ page }) => {
       first: perPage,
     },
   });
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error...</p>;
   return (
     <>

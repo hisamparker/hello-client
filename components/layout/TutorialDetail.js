@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 import { PRODUCT_BY_ID_QUERY } from '../../lib/api';
+import Loader from '../elements/Loader';
 
 const TutorialDetail = ({ id, slug }) => {
   const { data, error, loading } = useQuery(PRODUCT_BY_ID_QUERY, {
@@ -10,7 +11,7 @@ const TutorialDetail = ({ id, slug }) => {
       id,
     },
   });
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error...</p>;
   const { Product } = data;
   return (

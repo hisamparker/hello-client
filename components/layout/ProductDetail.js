@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
 import { PRODUCT_BY_ID_QUERY } from '../../lib/api';
+import Loader from '../elements/Loader';
 
 const ProductDetail = ({ id }) => {
   // hook that sends the query! return data, errors, and if loading, it's reactive so it rerenders on change!
@@ -15,7 +16,7 @@ const ProductDetail = ({ id }) => {
   // if you navigate here via products, you'll get a loading === true because we need to fetch the data, but if you
   // refresh the page, you'll fetch from the data cache so the render happens on the client side and there's no load time (thanks apollo)
   // TODO lodaing and error
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error...</p>;
   // this needs to go after loading, otherwise js will try to destructure before data exists!
   const { Product } = data;

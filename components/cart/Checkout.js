@@ -20,6 +20,7 @@ import { useRouter } from 'next/dist/client/router';
 import { CREATE_ORDER_MUTATION, CURRENT_USER_QUERY } from '../../lib/api';
 import { useCart } from '../../context/cartState';
 import { useSnackbar } from '../../context/snackbarState';
+import Button from '../elements/Button';
 
 // pass our stripe key into loadStripe, then we'll pass it to the stripe Element provider
 // we call loadStripe outside of component so that we don't call it on everyrender
@@ -102,9 +103,9 @@ const CheckoutForm = () => {
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
       <CardElement />
-      <button disabled={loading} type="submit">
+      <Button styleProp="primary" disabled={loading} type="submit">
         Check Out Now
-      </button>
+      </Button>
     </CheckoutFormStyles>
   );
 };
@@ -121,10 +122,22 @@ const Checkout = () => (
 export { Checkout };
 
 const CheckoutFormStyles = styled.form`
+  width: 100%;
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 5px;
+  grid-template-columns: 1fr;
   padding: 1rem;
   display: grid;
   grid-gap: 1rem;
+  div {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 2rem 1rem;
+    font-size: 2rem;
+    background-color: var(PrimaryLight);
+  }
+  button {
+    width: 60%;
+    justify-self: center;
+  }
 `;

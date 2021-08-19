@@ -2,45 +2,47 @@ import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import formatPrice from '../../lib/formatPrice';
 import AddToCart from '../cart/AddToCart';
 import useUser from '../auth/User';
-// import ItemStyles from '../styles/ItemStyles';
+import Loader from '../elements/Loader';
+import { USER_TUTORIALS_QUERY } from '../../lib/api';
 
 const Product = ({ product }) => {
   const user = useUser();
   // for some reason i get an error that my query doesn't return a graphql document if I import it and if i'm not logged in :/
-  const USER_TUTORIALS_QUERY = gql`
-    query {
-      # when we set up our config we said auth referencers the User schema but gql gives the option to auth anything
-      # the authenticatedItem query returns a union, that's why there's the ... before User
-      # this is incase you want to determine what type the auth is on in case we have subtypes https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/
-      authenticatedItem {
-        ... on User {
-          id
-          tutorials {
-            product {
-              id
-              slug
-              name
-              description
-              image {
-                id
-                altText
-                image {
-                  publicUrlTransformed
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
+  // I think not emptying cache entirely has fixed this... So I'll try without for a bit
+  // const USER_TUTORIALS_QUERY = gql`
+  //   query {
+  //     # when we set up our config we said auth referencers the User schema but gql gives the option to auth anything
+  //     # the authenticatedItem query returns a union, that's why there's the ... before User
+  //     # this is incase you want to determine what type the auth is on in case we have subtypes https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/
+  //     authenticatedItem {
+  //       ... on User {
+  //         id
+  //         tutorials {
+  //           product {
+  //             id
+  //             slug
+  //             name
+  //             description
+  //             image {
+  //               id
+  //               altText
+  //               image {
+  //                 publicUrlTransformed
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `;
   const { data: tutorialData, error, loading } = useQuery(USER_TUTORIALS_QUERY);
   // TODO go over all of these and create loader and messaging and error
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error... {error}</p>;
   let matchCartCacheToItem;
   let productname;
