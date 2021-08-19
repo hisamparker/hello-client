@@ -104,7 +104,7 @@ const CheckoutForm = () => {
     <CheckoutFormStyles onSubmit={handleSubmit}>
       <CardElement />
       <Button styleProp="primary" disabled={loading} type="submit">
-        Check Out Now
+        Check Out
       </Button>
     </CheckoutFormStyles>
   );

@@ -57,17 +57,6 @@ const StyledLogout = styled.button`
   font-size: 2rem;
   background: none;
   border: 0;
-  &:hover::after,
-  &:focus::after {
-    text-decoration: none;
-    content: '';
-    border-bottom: 2px solid var(--Primary);
-    position: absolute;
-    width: 60%;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-  }
   @media (max-width: 750px) {
     padding: 0 1rem;
     letter-spacing: 0.1rem;

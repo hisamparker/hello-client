@@ -14,7 +14,7 @@ const AccountDropdown = ({ children }) => {
   );
 };
 
-const Circle = styled.div`
+const Circle = styled.article`
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -55,12 +55,13 @@ const StyledMenu = styled.section`
     &:hover,
     &:focus {
       background-color: var(--Accent);
-      text-decoration: none;
       outline: none;
     }
-    &:hover::after,
-    &:focus::after {
-      border: none;
+  }
+  a {
+    &:hover,
+    &:focus {
+      text-decoration: none;
     }
   }
   @media (max-width: 575px) {

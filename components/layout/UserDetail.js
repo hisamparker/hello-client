@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 const UserDetail = ({ user, classProp }) => {
   const { name, email } = user;
   if (!user) <div>Who are you?</div>;
