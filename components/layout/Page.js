@@ -32,6 +32,8 @@ const Page = ({ children }) => {
 
 const StyledGridContainer = styled.section`
   width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
@@ -50,7 +52,7 @@ const StyledGridContainer = styled.section`
     min-height: 60vh;
     background-color: #e5e5e5;
     margin: 0 auto;
-    padding: 4rem;
+    padding: 2rem;
     border-radius: 3rem;
   }
 

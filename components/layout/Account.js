@@ -49,15 +49,28 @@ const StyledContainer = styled.article`
   }
   .account {
     grid-area: account;
+    max-width: 80vw;
   }
   .password {
     grid-area: password;
+    max-width: 80vw;
   }
   .tutorials {
     grid-area: tutorials;
+    max-width: 80vw;
   }
   .orders {
     grid-area: orders;
+    max-width: 80vw;
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'title'
+      'tutorials'
+      'account'
+      'password'
+      'orders';
   }
 `;
 

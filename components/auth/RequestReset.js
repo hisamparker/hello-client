@@ -24,13 +24,14 @@ const RequestReset = ({ classProp }) => {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
   });
-  const [signup, { loading, error }] = useMutation(REQUEST_RESET_MUTATION, {
+  const [signup, { loading }] = useMutation(REQUEST_RESET_MUTATION, {
     variables: inputs,
   });
   const handleSubmit = async (e) => {
     try {
       e.preventDefault(); // stop the form from submitting
       const res = await signup();
+      console.log(res);
       resetForm();
       snackbar.setSnackbarMessage(
         `Success! We've sent a reset link to ${res.email}!`

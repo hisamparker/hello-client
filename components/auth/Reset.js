@@ -16,12 +16,9 @@ const Reset = ({ token }) => {
     password: '',
     token,
   });
-  const [resetPassword, { data, loading, error }] = useMutation(
-    RESET_MUTATION,
-    {
-      variables: inputs,
-    }
-  );
+  const [resetPassword, { data, loading }] = useMutation(RESET_MUTATION, {
+    variables: inputs,
+  });
   // sometimes keystone's error doesn't work, so we create our own error handling to grab the error sent back from the mutation
   // I think this may be because we need to await the error?
   // TODO ask Michael

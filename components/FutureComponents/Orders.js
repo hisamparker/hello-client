@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import useUser from '../auth/User';
 import OrderDetail from '../layout/OrderDetail';
 

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -21,7 +20,7 @@ const OrdersWithMutation = ({ notPage, classProp }) => {
   }
   if (orderData.length <= 0) return <p>You don't have any orders yet!</p>;
   return (
-    <article className={classProp}>
+    <StyledOrdersArticle className={classProp}>
       {!notPage && (
         <Head>
           <title>
@@ -35,14 +34,19 @@ const OrdersWithMutation = ({ notPage, classProp }) => {
           <OrderDetail id={order.id} key={order.id + idx} />
         ))}
       </StyledOrderGrid>
-    </article>
+    </StyledOrdersArticle>
   );
 };
-
+const StyledOrdersArticle = styled.article`
+  display: grid;
+  justify-items: center;
+`;
 const StyledOrderGrid = styled.section`
+  justify-content: center;
+  width: 100%;
   color: var(--PrimaryDark);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, 325px);
   grid-gap: 4rem;
 `;
 
