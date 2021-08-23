@@ -23,30 +23,30 @@ const Modal = styled.section`
       transform: translate(-50%, 0);
       transition: all 0.45s ease-in;
     `}
-  ${({ styleProp }) =>
-    styleProp === 'success' &&
+  ${({ variant }) =>
+    variant === 'success' &&
     css`
       background-color: var(--Primary)};
       color: var(--OnMidground)};
       border-bottom: 2px solid var(--PrimaryLight);
     
     `}
-  ${({ styleProp }) =>
-    styleProp === 'error' &&
+  ${({ variant }) =>
+    variant === 'error' &&
     css`
       background-color: var(--ErrorLight);
       border-bottom: 2px solid var(--Error);
       color: var(--OnErrorLight)};
     `}
-  ${({ styleProp }) =>
-    styleProp === 'info' &&
+  ${({ variant }) =>
+    variant === 'info' &&
     css`
       background-color: var(--AccentLight);
       border-bottom: 2px solid var(--Accent);
       color: var(--OnAccent)};
     `}
-  ${({ styleProp }) =>
-    styleProp === 'hidden' &&
+  ${({ variant }) =>
+    variant === 'hidden' &&
     css`
       transform: translate(-50%, -100%);
       top: 0;
@@ -85,11 +85,11 @@ const CloseBtn = styled.button`
 const Snackbar = ({
   closeButton,
   isOpen,
-  styleProp,
+  variant,
   dismissOnClick,
   message,
 }) => (
-  <Modal isOpen={isOpen} styleProp={styleProp}>
+  <Modal isOpen={isOpen} variant={variant}>
     {closeButton && (
       <CloseBtn name="button" onClick={dismissOnClick}>
         close

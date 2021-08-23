@@ -103,7 +103,7 @@ const CheckoutForm = () => {
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
       <CardElement />
-      <Button styleProp="primary" disabled={loading} type="submit">
+      <Button variant="primary" disabled={loading} type="submit">
         Check Out
       </Button>
     </CheckoutFormStyles>
@@ -130,6 +130,7 @@ const CheckoutFormStyles = styled.form`
   padding: 1rem;
   display: grid;
   grid-gap: 1rem;
+  /* this comes from stripe, so I cannot change the html or style them directly */
   div {
     border: 1px solid rgba(0, 0, 0, 0.06);
     padding: 2rem 1rem;

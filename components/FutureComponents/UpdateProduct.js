@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useQuery, useMutation } from '@apollo/client';
 import { PRODUCT_BY_ID_QUERY, UPDATE_PRODUCT_MUTATION } from '../../lib/api';
 import useForm from '../../lib/useForm';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '../elements/ErrorMessage';
 import Loader from '../elements/Loader';
 
 const UpdateProduct = ({ id }) => {

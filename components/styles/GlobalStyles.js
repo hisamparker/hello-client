@@ -42,7 +42,7 @@ h1, h2, h3 {
 body {
   font-family: 'Asap','helvetica', 'arial', sans-serif;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   font-size: 2rem;
   line-height: 2;
   letter-spacing: 0.15rem;

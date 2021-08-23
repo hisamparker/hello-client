@@ -16,14 +16,14 @@ const Page = ({ children }) => {
         {snackbar && (
           <Snackbar
             isOpen={snackbar.snackbarOpen}
-            styleProp={snackbar.snackbarType}
+            variant={snackbar.snackbarType}
             message={snackbar.snackbarMessage}
             dismissOnClick={snackbar.closeSnackbar}
             closeButton={snackbar.closeButton}
           />
         )}
         <Header />
-        <section className="content">{children}</section>
+        <StyledPageContent>{children}</StyledPageContent>
         <Footer />
       </StyledGridContainer>
     </>
@@ -32,8 +32,6 @@ const Page = ({ children }) => {
 
 const StyledGridContainer = styled.section`
   width: 100%;
-  max-width: 1300px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
@@ -43,21 +41,24 @@ const StyledGridContainer = styled.section`
   header {
     grid-area: header;
   }
-
-  .content {
-    width: 95%;
-    display: grid;
-    justify-items: center;
-    grid-area: content;
-    min-height: 60vh;
-    background-color: #e5e5e5;
-    margin: 0 auto;
-    padding: 2rem;
-    border-radius: 3rem;
-  }
-
   footer {
     grid-area: footer;
+  }
+`;
+
+const StyledPageContent = styled.article`
+  width: 95%;
+  display: grid;
+  justify-items: center;
+  grid-area: content;
+  min-height: 60vh;
+  background-color: #e5e5e5;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 3rem;
+  @media (max-width: 414px) {
+    background-color: var(--Background);
+    padding: 1rem;
   }
 `;
 

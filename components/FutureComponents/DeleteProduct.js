@@ -42,7 +42,7 @@ const DeleteProduct = ({ id, children }) => {
   return (
     <div>
       <Button
-        styleProp="secondary"
+        variant="secondary"
         disabled={loading}
         onClick={handleDelete}
         type="button"

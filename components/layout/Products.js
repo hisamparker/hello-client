@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
@@ -35,7 +34,8 @@ const Products = ({ page }) => {
 const StyledProductGrid = styled.section`
   display: grid;
   max-height: 100%;
-  max-width: 95%;
+  max-width: var(--MaxWidth);
+  width: 90%;
   justify-items: stretch;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-gap: 5rem;

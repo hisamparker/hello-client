@@ -11,8 +11,8 @@ const StyledButton = styled.button`
   font-size: 1.5rem;
   transition: all ease-out 200ms;
   letter-spacing: 1.5px;
-  background-color: ${({ styleProp }) =>
-    styleProp === 'primary' ? 'var(--Primary)' : 'transparent'};
+  background-color: ${({ variant }) =>
+    variant === 'primary' ? 'var(--Primary)' : 'transparent'};
   &:disabled {
     background-color: var(--Disabled);
     pointer-events: none;
@@ -20,35 +20,29 @@ const StyledButton = styled.button`
     color: var(--OnDisabled);
     border: solid 2px var(--DisabledBorder);
   }
-  ${({ styleProp }) =>
-    styleProp === 'primary' &&
+  ${({ variant }) =>
+    variant === 'primary' &&
     css`
       color: var(--OnMidground);
     `};
-  ${({ styleProp }) =>
-    styleProp === 'secondary' &&
+  ${({ variant }) =>
+    variant === 'secondary' &&
     css`
       color: var(--Primary);
       border: 2px solid var(--Primary);
     `};
-  ${({ styleProp }) =>
-    styleProp === 'naked' &&
+  ${({ variant }) =>
+    variant === 'naked' &&
     css`
       padding: 0;
       color: var(--OnForground);
     `};
 `;
 
-const Button = ({
-  disabled,
-  onClick,
-  type = 'button',
-  styleProp,
-  children,
-}) => (
+const Button = ({ disabled, onClick, type = 'button', variant, children }) => (
   <StyledButton
     disabled={disabled}
-    styleProp={styleProp}
+    variant={variant}
     type={type}
     onClick={onClick}
   >

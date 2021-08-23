@@ -92,7 +92,7 @@ const StyledContainer = styled.section`
   .next {
     grid-area: next;
   }
-  .page {
+  p {
     grid-area: page;
     @media (max-width: 380px) {
       display: none;

@@ -15,8 +15,6 @@ const Dot = styled.section`
   line-height: 2rem;
   min-width: 3rem;
   margin-left: 1rem;
-  font-feature-settings: 'tnum';
-  font-variant-numeric: tabular-nums;
 `;
 
 export default CartTally;

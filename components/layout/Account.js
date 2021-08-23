@@ -1,17 +1,20 @@
 import styled from 'styled-components';
 import useUser from '../auth/User';
-import OrdersWithMutation from './OrdersWithMutation';
+import OrdersWithMutation, { StyledModalContainer } from './OrdersWithMutation';
 import UserDetail from './UserDetail';
 import RequestReset from '../auth/RequestReset';
 import MyTutorials from './MyTutorials';
+import InfoModal from '../elements/InfoModal';
 
 const Account = () => {
   const user = useUser();
   return !user ? (
-    <p>Hey, you don't have an account, why you here?</p>
+    <StyledModalContainer>
+      <InfoModal message="Hey, you don't have an account, why you here?" />
+    </StyledModalContainer>
   ) : (
     <StyledContainer>
-      <StyledTitle>Hello {user.name}</StyledTitle>
+      <StyledTitle>Hello {user.name}!</StyledTitle>
       <UserDetail user={user} classProp="account" />
       <RequestReset classProp="password" />
       <MyTutorials classProp="tutorials">
@@ -23,8 +26,9 @@ const Account = () => {
 };
 
 const StyledTitle = styled.h1`
+  color: var(--Primary);
   text-transform: capitalize;
-  font-size: 4rem;
+  font-size: 5rem;
   margin-bottom: 0;
 `;
 
@@ -58,6 +62,7 @@ const StyledContainer = styled.article`
   .tutorials {
     grid-area: tutorials;
     max-width: 80vw;
+    text-align: center;
   }
   .orders {
     grid-area: orders;

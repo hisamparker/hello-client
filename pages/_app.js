@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
 // to hook into the router and change things based on events
 import Router from 'next/router';
 // progress bar package https://ricostacruz.com/nprogress/
 import NProgress from 'nprogress';
 // styling for the progress bar
 import '../components/styles/nprogress.css';
+import '../components/styles/prism-theme.css';
 import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData';
 import Page from '../components/layout/Page';

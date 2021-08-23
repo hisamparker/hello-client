@@ -1,10 +1,11 @@
-/* eslint-disable react/prop-types */
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import { USER_PRODUCTS_QUERY } from '../../lib/api';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '../elements/ErrorMessage';
 import TutorialDetail from './TutorialDetail';
 import Loader from '../elements/Loader';
+import InfoModal from '../elements/InfoModal';
+import { StyledModalContainer } from './OrdersWithMutation';
 
 const MyTutorials = ({ classProp, children }) => {
   // TODO change error
@@ -25,6 +26,13 @@ const MyTutorials = ({ classProp, children }) => {
   if (data.authenticatedItem) {
     getTutorials();
   }
+  if (mergedTutorials.length <= 0) {
+    return (
+      <StyledModalContainer>
+        <InfoModal message="You don't have any tutorials yet :/" />
+      </StyledModalContainer>
+    );
+  }
   return (
     <StyledArticle className={classProp}>
       {children}
@@ -44,9 +52,6 @@ const MyTutorials = ({ classProp, children }) => {
 const StyledArticle = styled.article`
   margin: 0 auto;
   width: 100%;
-  h2 {
-    text-align: center;
-  }
 `;
 const StyledTutorialsArticle = styled.article`
   justify-content: center;
@@ -54,7 +59,7 @@ const StyledTutorialsArticle = styled.article`
   grid-template-columns: repeat(auto-fill, 325px);
   grid-gap: 3rem;
   article {
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
   }
 `;
 

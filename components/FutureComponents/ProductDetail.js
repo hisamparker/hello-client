@@ -1,7 +1,7 @@
 // import head to customize anything that would be in the header
 import Head from 'next/head';
 import { useQuery } from '@apollo/client';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { PRODUCT_BY_ID_QUERY } from '../../lib/api';
 import Loader from '../elements/Loader';
 
@@ -26,22 +26,37 @@ const ProductDetail = ({ id }) => {
         {/* now the tab will say exactly what's in the title instead of just something random */}
         <title>Hello Tutorials | {Product.name}</title>
       </Head>
-      <div style={{ backgroundColor: 'blue' }}>
+      <StyledCard>
         <img
           alt={Product.name}
           // nested chaining to check if product exists or image exists
           src={Product?.image?.image?.publicUrlTransformed}
         />
-      </div>
-      <div>{Product.name}</div>
-      <div>{Product.price}</div>
-      <div>{Product.description}</div>
+        <h3>{Product.name}</h3>
+        <p>{Product.description}</p>
+      </StyledCard>
     </article>
   );
 };
 
-ProductDetail.propTypes = {
-  id: PropTypes.string,
-};
+const StyledCard = styled.article`
+  text-align: center;
+  padding: 4rem 2rem 3rem;
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr 0.75fr 0.25fr;
+  justify-items: center;
+  border: 2px solid var(--Primary);
+  background-color: var(--PrimaryLight);
+  img {
+    max-width: 40%;
+  }
+  button {
+    align-self: start;
+  }
+  h3 {
+    margin-bottom: 0;
+  }
+`;
 
 export default ProductDetail;

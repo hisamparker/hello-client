@@ -11,8 +11,6 @@ import {
   StyledInput,
 } from '../styles/Form';
 
-// TODO add sign up button
-
 const LogIn = () => {
   const snackbar = useSnackbar();
   const router = useRouter();
@@ -78,7 +76,7 @@ const LogIn = () => {
           />
         </StyledLabel>
         <StyledLabel htmlFor="password">
-          <div>Password</div>
+          Password
           <StyledInput
             type="password"
             name="password"
@@ -89,7 +87,7 @@ const LogIn = () => {
             onChange={handleChange}
           />
         </StyledLabel>
-        <Button styleProp="primary" disabled={loading} type="submit">
+        <Button variant="primary" disabled={loading} type="submit">
           Log in
         </Button>
       </StyledFieldset>

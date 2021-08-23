@@ -118,7 +118,7 @@ const SignUp = () => {
             onChange={handleChange}
           />
         </StyledLabel>
-        <Button styleProp="primary" type="submit">
+        <Button variant="primary" type="submit">
           Sign In!
         </Button>
       </StyledFieldset>

@@ -2,7 +2,7 @@
 import { useMutation } from '@apollo/client';
 import Router from 'next/router';
 import useForm from '../../lib/useForm';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '../elements/ErrorMessage';
 import { ALL_PRODUCTS_QUERY, CREATE_PRODUCT_MUTATION } from '../../lib/api';
 
 // gui with nextjs for creating product in keystone

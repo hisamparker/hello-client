@@ -6,12 +6,10 @@ import Cart from '../cart/Cart';
 
 const Header = () => (
   <StyledHeader>
-    {/* <div className="bar"> */}
     <StyledLogo>
       <Link href="/">hello</Link>
     </StyledLogo>
     <Nav />
-    {/* </div> */}
     <Cart />
   </StyledHeader>
 );

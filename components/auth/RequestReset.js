@@ -71,7 +71,7 @@ const RequestReset = ({ classProp }) => {
               disabled={loading}
             />
           </StyledLabel>
-          <Button styleProp="primary" type="submit">
+          <Button variant="primary" type="submit">
             Request Reset!
           </Button>
         </StyledFieldset>
