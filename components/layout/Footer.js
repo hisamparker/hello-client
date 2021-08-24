@@ -7,35 +7,37 @@ const Footer = () => {
   const user = useUser();
   return (
     <StyledFooter>
-      {!user ? (
-        <StyledLinkSection>
-          <Link href="/log-in">
-            <StyledFooterLink>log in</StyledFooterLink>
-          </Link>
-          <Link href="/sign-up">
-            <StyledFooterLink>sign up</StyledFooterLink>
-          </Link>
-        </StyledLinkSection>
-      ) : (
-        <StyledLinkSection>
-          <Link href="/my-tutorials">
-            <StyledFooterLink>My Tutorials</StyledFooterLink>
-          </Link>
-          <Link href="/account">
-            <StyledFooterLink>Account</StyledFooterLink>
-          </Link>
-        </StyledLinkSection>
-      )}
-      <StyledSocialSection>
-        <StyledSocialLink href="https://learn-the-web.algonquindesign.ca/topics/html-semantics-cheat-sheet/">
-          <Image src="/tik-tok.png" alt="tiktok" height="30" width="30" />
-        </StyledSocialLink>
-        <StyledSocialLink href="https://learn-the-web.algonquindesign.ca/topics/html-semantics-cheat-sheet/">
-          <Image src="/instagram.png" alt="tiktok" height="30" width="30" />
-        </StyledSocialLink>
-      </StyledSocialSection>
-      <h1>Hello Tutorials is for People</h1>
-      <sub>Thanks to Zsoka, Dervis, Leif, Cookie, AJ Roos</sub>
+      <StyledFooterContent>
+        {!user ? (
+          <StyledLinkSection>
+            <Link href="/log-in">
+              <StyledFooterLink>log in</StyledFooterLink>
+            </Link>
+            <Link href="/sign-up">
+              <StyledFooterLink>sign up</StyledFooterLink>
+            </Link>
+          </StyledLinkSection>
+        ) : (
+          <StyledLinkSection>
+            <Link href="/my-tutorials">
+              <StyledFooterLink>My Tutorials</StyledFooterLink>
+            </Link>
+            <Link href="/account">
+              <StyledFooterLink>Account</StyledFooterLink>
+            </Link>
+          </StyledLinkSection>
+        )}
+        <StyledSocialSection>
+          <StyledSocialLink href="https://learn-the-web.algonquindesign.ca/topics/html-semantics-cheat-sheet/">
+            <Image src="/tik-tok.png" alt="tiktok" height="30" width="30" />
+          </StyledSocialLink>
+          <StyledSocialLink href="https://learn-the-web.algonquindesign.ca/topics/html-semantics-cheat-sheet/">
+            <Image src="/instagram.png" alt="tiktok" height="30" width="30" />
+          </StyledSocialLink>
+        </StyledSocialSection>
+        <h1>Hello Tutorials is for People</h1>
+        <sub>Thanks to Zsoka, Dervis, Leif, Cookie, AJ Roos</sub>
+      </StyledFooterContent>
     </StyledFooter>
   );
 };
@@ -43,8 +45,13 @@ const Footer = () => {
 const StyledFooter = styled.footer`
   width: 100vw;
   background-color: var(--Primary);
-  margin-top: 4rem;
+  margin-top: 10rem;
   padding: 3rem;
+`;
+
+const StyledFooterContent = styled.section`
+  max-width: var(--MaxWidth);
+  margin: 0 auto;
   display: grid;
   color: var(--OnMidground);
   grid-template-columns: repeat(2, 1fr);

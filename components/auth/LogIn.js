@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import useForm from '../../lib/useForm';
 import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
-import { useSnackbar } from '../../context/snackbarState';
 import Button from '../elements/Button';
 import {
   StyledForm,
@@ -10,9 +10,11 @@ import {
   StyledLabel,
   StyledInput,
 } from '../styles/Form';
+import ErrorMessage from '../elements/ErrorMessage';
 
 const LogIn = () => {
-  const snackbar = useSnackbar();
+  const [isError, setIsError] = useState(false);
+  const [isErrorMessage, setErrorMessage] = useState('');
   const router = useRouter();
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
@@ -31,29 +33,42 @@ const LogIn = () => {
       const res = await logIn();
       if (
         res.data.authenticateUserWithPassword.__typename ===
+          'UserAuthenticationWithPasswordSuccess' &&
+        res.data.authenticateUserWithPassword.item.tutorials.length > 0
+      ) {
+        return router.push('/my-tutorials');
+      }
+      if (
+        res.data.authenticateUserWithPassword.__typename ===
         'UserAuthenticationWithPasswordSuccess'
       ) {
-        router.push('/my-tutorials');
+        return router.push('/');
       }
       if (
         res.data.authenticateUserWithPassword.__typename ===
         'UserAuthenticationWithPasswordFailure'
       ) {
-        snackbar.setSnackbarMessage(
-          'Something went wrong, please try logging in again.'
-        );
-        snackbar.setSnackbarType('error');
-        snackbar.openSnackbar();
-        snackbar.setCloseButton(true);
+        setIsError(true);
+        setErrorMessage(`Something went wrong, please try logging in again.`);
+        let timer = '';
+        new Promise(() => {
+          timer = setTimeout(() => {
+            setIsError(false);
+            setErrorMessage('');
+          }, 4000);
+        }).then(() => () => clearTimeout(timer));
       }
       resetForm();
     } catch (err) {
-      snackbar.setSnackbarMessage(
-        'Something went wrong, please try logging in again.'
-      );
-      snackbar.setSnackbarType('error');
-      snackbar.openSnackbar();
-      snackbar.setCloseButton(true);
+      setIsError(true);
+      setErrorMessage(`Something went wrong, please try logging in again.`);
+      let timer = '';
+      new Promise(() => {
+        timer = setTimeout(() => {
+          setIsError(false);
+          setErrorMessage('');
+        }, 4000);
+      }).then(() => () => clearTimeout(timer));
       resetForm();
     }
   };
@@ -61,6 +76,9 @@ const LogIn = () => {
   return (
     // we MUST specify post here otherwise the password shows up in the params
     <StyledForm method="POST" onSubmit={handleSubmit}>
+      {isError && isErrorMessage && (
+        <ErrorMessage errorMessage={isErrorMessage} />
+      )}
       <h2>Log In</h2>
       <StyledFieldset>
         <StyledLabel htmlFor="email">

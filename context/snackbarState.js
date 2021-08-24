@@ -11,8 +11,6 @@ function SnackbarStateProvider({ children }) {
   // Closed snackbar by default
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(false);
-  const [snackbarType, setSnackbarType] = useState('');
-  const [closeButton, setCloseButton] = useState(false);
 
   // function for toggling the snackbar open and closed
   function toggleSnackbar() {
@@ -23,7 +21,6 @@ function SnackbarStateProvider({ children }) {
   function closeSnackbar() {
     setSnackbarOpen(false);
     setSnackbarMessage('');
-    setSnackbarType('hidden');
   }
 
   // function to open snackbar
@@ -34,12 +31,8 @@ function SnackbarStateProvider({ children }) {
   return (
     <LocalStateProvider
       value={{
-        closeButton,
-        setCloseButton,
         snackbarMessage,
         setSnackbarMessage,
-        snackbarType,
-        setSnackbarType,
         snackbarOpen,
         setSnackbarOpen,
         toggleSnackbar,

@@ -1,3 +1,5 @@
+/* https://gosink.in/next-js-make-your-own-progress-bar-indicator-component-easily/ */
+/* more configurations https://github.com/rstacruz/nprogress#configuration */
 /* Make clicks pass-through */
 #nprogress {
   pointer-events: none;

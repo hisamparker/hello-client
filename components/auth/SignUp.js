@@ -15,8 +15,11 @@ import {
   StyledLabel,
   StyledInput,
 } from '../styles/Form';
+import ErrorMessage from '../elements/ErrorMessage';
 
 const SignUp = () => {
+  const [isError, setIsError] = useState(false);
+  const [isErrorMessage, setErrorMessage] = useState('');
   const snackbar = useSnackbar();
   // https://www.howtographql.com/react-apollo/5-authentication/ in tutorial, there's no auto login, I hate this, here's how the graphql docs suggest doing it
   const [isLoggedInUser, setIsLoggedInUser] = useState({
@@ -51,16 +54,13 @@ const SignUp = () => {
           password: inputs.password,
         });
         resetForm();
-        login();
-        // TODO add success messaging either before redirecting (with a set timeout) or set messaging on the Page componnent so it shows everywhere and add success and fail to context or pass it up
+        await login();
         router.push('/');
         // Send the email and password to the graphqlAPI
         snackbar.setSnackbarMessage(
           `Hey! welcome to hello tutorials ${inputs.name}`
         );
-        snackbar.setSnackbarType('success');
         snackbar.openSnackbar();
-        snackbar.setCloseButton(false);
         let timer = '';
         new Promise(() => {
           timer = setTimeout(() => {
@@ -69,17 +69,25 @@ const SignUp = () => {
         }).then(() => () => clearTimeout(timer));
       }
     } catch (err) {
-      snackbar.setSnackbarMessage(
-        'Something went wrong, please check your info and try again.'
+      setIsError(true);
+      setErrorMessage(
+        `Something went wrong, please check your info and try again.`
       );
-      snackbar.setSnackbarType('error');
-      snackbar.openSnackbar();
-      snackbar.setCloseButton(true);
+      let timer = '';
+      new Promise(() => {
+        timer = setTimeout(() => {
+          setIsError(false);
+          setErrorMessage('');
+        }, 4000);
+      }).then(() => () => clearTimeout(timer));
       resetForm();
     }
   };
   return (
     <StyledForm method="POST" onSubmit={handleSubmit}>
+      {isError && isErrorMessage && (
+        <ErrorMessage errorMessage={isErrorMessage} />
+      )}
       <h2>Sign Up For an Account</h2>
       <StyledFieldset>
         {data?.createUser && (
@@ -119,7 +127,7 @@ const SignUp = () => {
           />
         </StyledLabel>
         <Button variant="primary" type="submit">
-          Sign In!
+          Create Account
         </Button>
       </StyledFieldset>
     </StyledForm>

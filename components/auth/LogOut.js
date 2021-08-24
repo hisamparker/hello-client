@@ -20,9 +20,7 @@ const LogOut = () => {
       await logOut();
       router.push('/');
       snackbar.setSnackbarMessage(`Later ${user.name}`);
-      snackbar.setSnackbarType('success');
       snackbar.openSnackbar();
-      snackbar.setCloseButton(false);
       let timer = '';
       new Promise(() => {
         timer = setTimeout(() => {
@@ -30,12 +28,7 @@ const LogOut = () => {
         }, 3000);
       }).then(() => () => clearTimeout(timer));
     } catch (err) {
-      snackbar.setSnackbarMessage(
-        'Something went wrong, please try logging out again.'
-      );
-      snackbar.setSnackbarType('error');
-      snackbar.openSnackbar();
-      snackbar.setCloseButton(true);
+      console.log(err);
     }
   };
 

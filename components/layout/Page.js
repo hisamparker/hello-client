@@ -16,22 +16,20 @@ const Page = ({ children }) => {
         {snackbar && (
           <Snackbar
             isOpen={snackbar.snackbarOpen}
-            variant={snackbar.snackbarType}
             message={snackbar.snackbarMessage}
-            dismissOnClick={snackbar.closeSnackbar}
-            closeButton={snackbar.closeButton}
           />
         )}
         <Header />
         <StyledPageContent>{children}</StyledPageContent>
-        <Footer />
       </StyledGridContainer>
+      <Footer />
     </>
   );
 };
 
 const StyledGridContainer = styled.section`
-  width: 100%;
+  margin: 0 auto;
+  max-width: var(--MaxWidth);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:

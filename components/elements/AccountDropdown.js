@@ -45,6 +45,10 @@ const StyledMenu = styled.section`
   ${Circle}:hover & {
     display: block;
   }
+  &:focus,
+  ${Circle}:focus & {
+    display: block;
+  }
   a,
   button {
     line-height: 1em;

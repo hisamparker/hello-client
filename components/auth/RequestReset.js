@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { useState } from 'react';
 import useForm from '../../lib/useForm';
 import { REQUEST_RESET_MUTATION } from '../../lib/api';
 import { useSnackbar } from '../../context/snackbarState';
@@ -9,6 +10,7 @@ import {
   StyledLabel,
   StyledInput,
 } from '../styles/Form';
+import ErrorMessage from '../elements/ErrorMessage';
 
 // keystone offers options for sending password reset to users, we need to handle email sending, they handle the token creating and redemption
 // The mutation sendUserPasswordResetLink allows you to send a reset token to a user.
@@ -20,6 +22,8 @@ import {
 // token '2mzFdfgljldfjgldjlskg'
 
 const RequestReset = ({ classProp }) => {
+  const [isError, setIsError] = useState(false);
+  const [isErrorMessage, setErrorMessage] = useState('');
   const snackbar = useSnackbar();
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
@@ -36,10 +40,7 @@ const RequestReset = ({ classProp }) => {
       snackbar.setSnackbarMessage(
         `Success! We've sent a reset link to ${res.email}!`
       );
-      snackbar.setSnackbarType('success');
       snackbar.openSnackbar();
-      snackbar.setCloseButton(false);
-
       let timer = '';
       new Promise(() => {
         timer = setTimeout(() => {
@@ -47,16 +48,26 @@ const RequestReset = ({ classProp }) => {
         }, 3500);
       }).then(() => () => clearTimeout(timer));
     } catch (err) {
-      snackbar.setSnackbarMessage(`Something went wrong :/`);
-      snackbar.setSnackbarType('error');
-      snackbar.openSnackbar();
-      snackbar.setCloseButton(true);
+      setIsError(true);
+      setErrorMessage(
+        `Something went wrong, please check your info and try again.`
+      );
+      let timer = '';
+      new Promise(() => {
+        timer = setTimeout(() => {
+          setIsError(false);
+          setErrorMessage('');
+        }, 4000);
+      }).then(() => () => clearTimeout(timer));
       resetForm();
     }
   };
   return (
     <article className={classProp}>
       <StyledForm method="POST" onSubmit={handleSubmit}>
+        {isError && isErrorMessage && (
+          <ErrorMessage errorMessage={isErrorMessage} />
+        )}
         <h2>Request a Password Reset</h2>
         <StyledFieldset>
           <StyledLabel htmlFor="email">

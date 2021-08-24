@@ -21,6 +21,7 @@ import { CREATE_ORDER_MUTATION, CURRENT_USER_QUERY } from '../../lib/api';
 import { useCart } from '../../context/cartState';
 import { useSnackbar } from '../../context/snackbarState';
 import Button from '../elements/Button';
+import ErrorMessage from '../elements/ErrorMessage';
 
 // pass our stripe key into loadStripe, then we'll pass it to the stripe Element provider
 // we call loadStripe outside of component so that we don't call it on everyrender
@@ -28,8 +29,10 @@ import Button from '../elements/Button';
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 const CheckoutForm = () => {
-  const snackbar = useSnackbar();
+  const [isError, setIsError] = useState(false);
+  const [isErrorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const snackbar = useSnackbar();
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
@@ -52,20 +55,29 @@ const CheckoutForm = () => {
         type: 'card',
         card: elements.getElement(CardElement),
       });
-      console.log(paymentMethod);
       if (error) {
-        snackbar.setSnackbarMessage(error.message);
-        snackbar.setSnackbarType('error');
-        snackbar.openSnackbar();
-        snackbar.setCloseButton(true);
+        setIsError(true);
+        setErrorMessage(error.message);
+        let errorTimer = '';
+        new Promise(() => {
+          errorTimer = setTimeout(() => {
+            setIsError(false);
+            setErrorMessage('');
+          }, 4000);
+        }).then(() => () => clearTimeout(errorTimer));
         nProgress.done(); // stops progress bar
         return; // stops the checkout from happening if there's an error
       }
       if (graphQLError) {
-        snackbar.setSnackbarMessage(graphQLError.message);
-        snackbar.setSnackbarType('error');
-        snackbar.openSnackbar();
-        snackbar.setCloseButton(true);
+        setIsError(true);
+        setErrorMessage(graphQLError.message);
+        let errorTimer = '';
+        new Promise(() => {
+          errorTimer = setTimeout(() => {
+            setIsError(false);
+            setErrorMessage('');
+          }, 4000);
+        }).then(() => () => clearTimeout(errorTimer));
         nProgress.done(); // stops progress bar
         return; // stops the checkout from happening if there's an error
       }
@@ -86,9 +98,7 @@ const CheckoutForm = () => {
       setLoading(false);
       nProgress.done();
       snackbar.setSnackbarMessage(`Yay! Time to learn!`);
-      snackbar.setSnackbarType('success');
       snackbar.openSnackbar();
-      snackbar.setCloseButton(false);
       let timer = '';
       new Promise(() => {
         timer = setTimeout(() => {
@@ -102,6 +112,9 @@ const CheckoutForm = () => {
 
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
+      {isError && isErrorMessage && (
+        <ErrorMessage errorMessage={isErrorMessage} />
+      )}
       <CardElement />
       <Button variant="primary" disabled={loading} type="submit">
         Check Out

@@ -7,7 +7,6 @@ const ProductsPage = () => {
   const { page } = router.query;
   return (
     <>
-      <Pagination page={+page || 1} />
       <Products page={+page || 1} />
       <Pagination page={+page || 1} />
     </>

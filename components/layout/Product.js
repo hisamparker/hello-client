@@ -1,17 +1,22 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useQuery } from '@apollo/client';
+import Link from 'next/link';
+import { useState } from 'react';
 import formatPrice from '../../lib/formatPrice';
 import AddToCart from '../cart/AddToCart';
 import useUser from '../auth/User';
 import Loader from '../elements/Loader';
 import { USER_TUTORIALS_QUERY } from '../../lib/api';
+import { isAlreadyPurchased } from '../../lib/isAlreadyPurchased';
+import ErrorMessage from '../elements/ErrorMessage';
 
 const Product = ({ product }) => {
+  const [isFocused, setIsFocused] = useState(false);
   const user = useUser();
   const { data: tutorialData, error, loading } = useQuery(USER_TUTORIALS_QUERY);
   // TODO go over all of these and create loader and messaging and error
   if (loading) return <Loader />;
-  if (error) return <p>Error... {error}</p>;
+  if (error) return <ErrorMessage>Error... {error}</ErrorMessage>;
   let matchCartCacheToItem;
   let productname;
   if (user && user.cart) {
@@ -20,28 +25,32 @@ const Product = ({ product }) => {
       user.cart.some((item) => item.product.id === itemId);
     productname = product.name;
   }
-  let alreadyPurchased;
-  if (user && tutorialData.authenticatedItem) {
-    alreadyPurchased = tutorialData.authenticatedItem.tutorials.some(
-      (tutorial) => tutorial.product.id === product.id
-    );
-  }
-  return (
-    <StyledCard>
-      <img
-        alt={product.name}
-        // nested chaining to check if product exists or image exists
-        src={product?.image?.image?.publicUrlTransformed}
-      />
-      <StyledCardTitle>{user ? productname : product.name}</StyledCardTitle>
 
-      <StyledPriceTag>
-        <p>{formatPrice(product.price)}</p>
-      </StyledPriceTag>
+  return (
+    <StyledCard isFocused={isFocused}>
+      <Link href={`/tutorial/${product.slug}`}>
+        <StyledCardLink
+          onMouseOver={() => setIsFocused(true)}
+          onMouseOut={() => setIsFocused(false)}
+        >
+          <img
+            alt={product.name}
+            // nested chaining to check if product exists or image exists
+            src={product?.image?.image?.publicUrlTransformed}
+          />
+          <StyledCardTitle>{user ? productname : product.name}</StyledCardTitle>
+        </StyledCardLink>
+      </Link>
+
+      {!isAlreadyPurchased(user, tutorialData, product.id) && (
+        <StyledPriceTag>
+          <p>{formatPrice(product.price)}</p>
+        </StyledPriceTag>
+      )}
       <AddToCart
         isMatch={user && matchCartCacheToItem(product.id)}
         id={product.id}
-        purchased={alreadyPurchased}
+        purchased={isAlreadyPurchased(user, tutorialData, product.id)}
         slug={product.slug}
       />
     </StyledCard>
@@ -49,12 +58,12 @@ const Product = ({ product }) => {
 };
 
 const StyledCard = styled.article`
-  text-align: center;
-  padding: 4rem 2rem 3rem;
+  padding: 4rem 2rem 0;
   position: relative;
   display: grid;
-  grid-template-rows: 1fr 0.75fr 0.25fr;
+  grid-template-rows: 1.5fr 0.5fr;
   justify-items: center;
+  align-items: baseline;
   border: 2px solid var(--Primary);
   background-color: var(--PrimaryLight);
   img {
@@ -63,6 +72,22 @@ const StyledCard = styled.article`
   button {
     align-self: start;
   }
+  ${({ isFocused }) =>
+    isFocused &&
+    css`
+      background-color: RGB(156, 173, 251);
+    `};
+`;
+
+const StyledCardLink = styled.a`
+  display: grid;
+  justify-items: center;
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    outline: none;
+  }
+  margin-bottom: 2rem;
 `;
 
 const StyledCardTitle = styled.h3`
@@ -73,6 +98,9 @@ const StyledCardTitle = styled.h3`
   text-align: center;
   color: white;
   margin-bottom: 0;
+  ${StyledCardLink}:hover & {
+    border-bottom: 2px solid var(--OnMidground);
+  }
 `;
 
 const StyledPriceTag = styled.div`

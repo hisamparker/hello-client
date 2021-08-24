@@ -1,14 +1,18 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import useForm from '../../lib/useForm';
 import { RESET_MUTATION } from '../../lib/api';
 import { useSnackbar } from '../../context/snackbarState';
+import ErrorMessage from '../elements/ErrorMessage';
 // TODO create better messaging and redirect
 
 // The mutation redeemUserPasswordResetToken lets the user reset their password by redeeming the token.
 // You need to provide a sendToken function which can be used by sendUserPasswordResetLink to send the generated token to the user.
 // It is expected that you will use these mutations as part of a password reset workflow within your frontend application.
 const Reset = ({ token }) => {
+  const [isError, setIsError] = useState(false);
+  const [isErrorMessage, setErrorMessage] = useState('');
   const router = useRouter();
   const snackbar = useSnackbar();
   const { inputs, handleChange, resetForm } = useForm({
@@ -27,9 +31,7 @@ const Reset = ({ token }) => {
     try {
       const res = await resetPassword();
       snackbar.setSnackbarMessage(`Yay! You're good to log in.`);
-      snackbar.setSnackbarType('success');
       snackbar.openSnackbar();
-      snackbar.setCloseButton(false);
       resetForm();
       router.push('/log-in');
       console.log(res);
@@ -41,15 +43,25 @@ const Reset = ({ token }) => {
       }).then(() => () => clearTimeout(timer));
       // Send the email and password to the graphqlAPI
     } catch (err) {
-      snackbar.setSnackbarMessage(`Something went wrong.`);
-      snackbar.setSnackbarType('error');
-      snackbar.openSnackbar();
-      snackbar.setCloseButton(true);
+      setIsError(true);
+      setErrorMessage(
+        `Something went wrong, please check your email and try again.`
+      );
+      let timer = '';
+      new Promise(() => {
+        timer = setTimeout(() => {
+          setIsError(false);
+          setErrorMessage('');
+        }, 4000);
+      }).then(() => () => clearTimeout(timer));
       resetForm();
     }
   };
   return (
     <form method="POST" onSubmit={handleSubmit}>
+      {isError && isErrorMessage && (
+        <ErrorMessage errorMessage={isErrorMessage} />
+      )}
       <h2>Reset Your Password</h2>
       <fieldset>
         {data?.redeemUserPasswordResetToken === null && (

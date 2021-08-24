@@ -1,8 +1,27 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-irregular-whitespace */
+import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
+import useUser from '../../components/auth/User';
+import AddToCart from '../../components/cart/AddToCart';
 import Code from '../../components/elements/Code';
+import ErrorMessage from '../../components/elements/ErrorMessage';
+import Loader from '../../components/elements/Loader';
+import { USER_TUTORIALS_QUERY } from '../../lib/api';
+import { isAlreadyPurchased } from '../../lib/isAlreadyPurchased';
 
 const gitTutorial = () => {
+  const user = useUser();
+  const { data: tutorialData, error, loading } = useQuery(USER_TUTORIALS_QUERY);
+  // TODO create a component!
+  if (loading) return <Loader />;
+  if (error) return <ErrorMessage>Error... {error}</ErrorMessage>;
+  let matchCartCacheToItem;
+  if (user && user.cart) {
+    matchCartCacheToItem = (itemId) =>
+      // if the array (cart) contains an object with a value that matches the itemId, return true, then pass ismatch to addtccart component and if true, add to cart is disabled for that item
+      user.cart.some((item) => item.product.id === itemId);
+  }
   const code = `let text = "";
   let i = 0;
   while (i < 5) {
@@ -22,6 +41,48 @@ for (i = 0; i < 5; i++) {
     }
   text += "The number is " + i + "<br>";
 }`;
+  if (!isAlreadyPurchased(user, tutorialData, '610be8cf39197ebea7c61420'))
+    return (
+      <StyledPreviewContainer>
+        <StyledPreviewTitle>Looping && Iterating</StyledPreviewTitle>
+        <StyledPreviewContent className="item3">
+          <h2>Learning goals:</h2>
+          <ul>
+            <li>describe and use loops</li>
+            <li>describe and use different types of loops</li>
+            <li>break down exactly how a loop iterates</li>
+          </ul>
+          <blockquote>JavaScript doesn't care — W3schools</blockquote>
+          <h2>Loops</h2>
+          <StyledP>
+            A loop is a sequence of instructions that is repeated until a
+            specific condition is met.
+          </StyledP>
+          <br />
+          <StyledP>
+            Use loops to run the same code over and over and over again, each
+            time with a different value.
+          </StyledP>
+          <br />
+          <StyledP>
+            There are lots different loops, but they all do a version of the
+            same thing.They repeat an action for a (usually specified) number of
+            times.
+          </StyledP>
+          <br />
+          <StyledP>
+            Multiple loops are great because they give us different ways to
+            determine the start and end points of the loop.
+          </StyledP>
+          <br />
+          <StyledP>Different situations call for different loops...</StyledP>
+        </StyledPreviewContent>
+        <AddToCart
+          isMatch={user && matchCartCacheToItem('610be8cf39197ebea7c61420')}
+          id="610be8cf39197ebea7c61420"
+        />
+      </StyledPreviewContainer>
+    );
   return (
     <StyledGridContainer>
       <StyledAside>
@@ -38,7 +99,7 @@ for (i = 0; i < 5; i++) {
           <li>stuff and things</li>
         </ul>
       </StyledAside>
-      <h1>Looping && Iterating</h1>
+      <StyledTitle>Looping && Iterating</StyledTitle>
       <StyledContent className="item3">
         <h2>Learning goals:</h2>
         <ul>
@@ -50,12 +111,17 @@ for (i = 0; i < 5; i++) {
         <h2>Loops</h2>
         <StyledP>
           A loop is a sequence of instructions that is repeated until a specific
-          condition is met. Use loops to run the same code over and over again,
-          each time with a different value. There are lots of different loops,
-          but they all do a version of the same thing. They repeat an action for
-          a (usually specified) number of times. Multiple loops are great
-          because they give us different ways to determine the start and end
-          points of the loop. Different situations call for different loops.
+          condition is met.
+          <br />
+          Use loops to run the same code over and over and over again, each time
+          with a different value.
+          <br />
+          There are lots different loops, but they all do a version of the same
+          thing.They repeat an action for a (usually specified) number of times.
+          <b />
+          Multiple loops are great because they give us different ways to
+          determine the start and end points of the loop. <br />
+          Different situations call for different loops.
         </StyledP>
         <h2>Loopy loop loops 🍃</h2>
 
@@ -158,7 +224,8 @@ const StyledContent = styled.article`
   max-width: 850px;
   color: var(--PrimaryDark);
   background-color: white;
-  padding: 2rem 5rem;
+  margin: 2rem 0;
+  padding: 4rem 5rem;
   border-radius: 5rem;
   @media (max-width: 414px) {
     border: none;
@@ -166,8 +233,24 @@ const StyledContent = styled.article`
   }
 `;
 
+const StyledPreviewContent = styled(StyledContent)`
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  overflow-y: scroll;
+  margin-top: 3rem;
+  border-radius: 5rem 5rem 0 0;
+`;
+
+const StyledPreviewContainer = styled.section`
+  margin: 0 auto 2rem;
+  display: grid;
+  button {
+    width: 200px;
+    justify-self: center;
+  }
+`;
+
 const StyledGridContainer = styled.section`
-  margin: 0 auto;
+  margin: 0 auto 2rem;
   max-width: 90vw;
   padding: 0 1rem;
   display: grid;
@@ -178,13 +261,6 @@ const StyledGridContainer = styled.section`
     'sidebar content';
   aside {
     grid-area: sidebar;
-  }
-  h1 {
-    grid-area: title;
-    color: var(--Primary);
-    font-size: 7rem;
-    margin: 1.5rem 0;
-    line-height: 1.5em;
   }
   ${StyledContent} {
     grid-area: content;
@@ -200,6 +276,17 @@ const StyledGridContainer = styled.section`
       'content'
       'sidebar';
   }
+`;
+const StyledPreviewTitle = styled.h1`
+  color: var(--Primary);
+  font-size: 7rem;
+  margin: 1.5rem 0;
+  line-height: 1.15em;
+  margin: 1.5rem auto 0;
+`;
+
+const StyledTitle = styled(StyledPreviewTitle)`
+  grid-area: title;
 `;
 
 const StyledAside = styled.aside`
@@ -231,5 +318,5 @@ const StyledAside = styled.aside`
 const StyledP = styled.p`
   max-width: 750px;
   line-height: 1.5em;
-  margin-top: 0;
+  margin: 0;
 `;
