@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import { PRODUCT_BY_ID_QUERY } from '../../lib/api';
 import Loader from '../elements/Loader';
+import { capitalizeFirstLetter } from '../../lib/capitalizeFirstLetter';
 
 const ProductDetail = ({ id }) => {
   // hook that sends the query! return data, errors, and if loading, it's reactive so it rerenders on change!
@@ -24,7 +25,7 @@ const ProductDetail = ({ id }) => {
     <article>
       <Head>
         {/* now the tab will say exactly what's in the title instead of just something random */}
-        <title>Hello Tutorials | {Product.name}</title>
+        <title>Hello Tutorials | {capitalizeFirstLetter(Product)}</title>
       </Head>
       <StyledCard>
         <img

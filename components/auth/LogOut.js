@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { CURRENT_USER_QUERY, LOG_OUT_MUTATION } from '../../lib/api';
 import { useSnackbar } from '../../context/snackbarState';
 import useUser from './User';
+import { capitalizeFirstLetter } from '../../lib/capitalizeFirstLetter';
 
 const LogOut = () => {
   const user = useUser();
@@ -19,7 +20,7 @@ const LogOut = () => {
     try {
       await logOut();
       router.push('/');
-      snackbar.setSnackbarMessage(`Later ${user.name}`);
+      snackbar.setSnackbarMessage(`Later ${capitalizeFirstLetter(user)}`);
       snackbar.openSnackbar();
       let timer = '';
       new Promise(() => {

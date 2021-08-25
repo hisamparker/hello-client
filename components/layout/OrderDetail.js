@@ -1,5 +1,4 @@
 // import head to customize anything that would be in the header
-import Head from 'next/head';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import formatPrice from '../../lib/formatPrice';
@@ -26,10 +25,6 @@ const OrderDetail = ({ id }) => {
   const { Order } = data;
   return (
     <>
-      <Head>
-        {/* now the tab will say exactly what's in the title instead of just something random */}
-        <title>Hello Tutorials | {Order.user.name}'s Order</title>
-      </Head>
       <StyledOrderCard>
         <div>
           <h2>ORDER</h2>

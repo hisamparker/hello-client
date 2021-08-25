@@ -19,7 +19,7 @@ const Pagination = ({ page }) => {
       <Head>
         {/* now the tab will say exactly what's in the title instead of just something random */}
         <title>
-          hello tutorials || Page {page} of {pageCount}
+          Hello Tutorials | Page {page} of {pageCount}
         </title>
       </Head>
       <StyledContainer>

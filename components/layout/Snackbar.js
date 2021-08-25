@@ -18,6 +18,7 @@ const Modal = styled.section`
   background-color: var(--Primary);
   color: var(--OnMidground);
   border-bottom: 4px solid var(--PrimaryLight);
+  font-size: 2.25rem;
   ${({ isOpen }) =>
     isOpen &&
     css`
@@ -25,6 +26,16 @@ const Modal = styled.section`
       transform: translate(-50%, 0);
       transition: all 0.45s ease-out;
     `}
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 1rem;
+    background-color: white;
+    margin-top: 4px;
+  }
 `;
 
 const Snackbar = ({ isOpen, message }) => (

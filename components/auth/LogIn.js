@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import Head from 'next/head';
 import useForm from '../../lib/useForm';
 import { CURRENT_USER_QUERY, LOG_IN_MUTATION } from '../../lib/api';
 import Button from '../elements/Button';
@@ -75,41 +76,47 @@ const LogIn = () => {
 
   return (
     // we MUST specify post here otherwise the password shows up in the params
-    <StyledForm method="POST" onSubmit={handleSubmit}>
-      {isError && isErrorMessage && (
-        <ErrorMessage errorMessage={isErrorMessage} />
-      )}
-      <h2>Log In</h2>
-      <StyledFieldset>
-        <StyledLabel htmlFor="email">
-          Email
-          <StyledInput
-            type="email"
-            name="email"
-            placeholder="Email"
-            // most browsers will already try to complete this just says heeeey is an email
-            autoComplete="email"
-            value={inputs.email}
-            onChange={handleChange}
-          />
-        </StyledLabel>
-        <StyledLabel htmlFor="password">
-          Password
-          <StyledInput
-            type="password"
-            name="password"
-            placeholder="Password"
-            // most browsers will already try to complete this just says heeeey is an password
-            autoComplete="password"
-            value={inputs.password}
-            onChange={handleChange}
-          />
-        </StyledLabel>
-        <Button variant="primary" disabled={loading} type="submit">
-          Log in
-        </Button>
-      </StyledFieldset>
-    </StyledForm>
+    <>
+      <Head>
+        {/* now the tab will say exactly what's in the title instead of just something random */}
+        <title>Hello Tutorials | Log In</title>
+      </Head>
+      <StyledForm method="POST" onSubmit={handleSubmit}>
+        {isError && isErrorMessage && (
+          <ErrorMessage errorMessage={isErrorMessage} />
+        )}
+        <h2>Log In</h2>
+        <StyledFieldset>
+          <StyledLabel htmlFor="email">
+            Email
+            <StyledInput
+              type="email"
+              name="email"
+              placeholder="Email"
+              // most browsers will already try to complete this just says heeeey is an email
+              autoComplete="email"
+              value={inputs.email}
+              onChange={handleChange}
+            />
+          </StyledLabel>
+          <StyledLabel htmlFor="password">
+            Password
+            <StyledInput
+              type="password"
+              name="password"
+              placeholder="Password"
+              // most browsers will already try to complete this just says heeeey is an password
+              autoComplete="password"
+              value={inputs.password}
+              onChange={handleChange}
+            />
+          </StyledLabel>
+          <Button variant="primary" disabled={loading} type="submit">
+            Log in
+          </Button>
+        </StyledFieldset>
+      </StyledForm>
+    </>
   );
 };
 

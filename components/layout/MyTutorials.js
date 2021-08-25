@@ -1,13 +1,17 @@
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
+import Head from 'next/head';
 import { USER_PRODUCTS_QUERY } from '../../lib/api';
 import ErrorMessage from '../elements/ErrorMessage';
 import TutorialDetail from './TutorialDetail';
 import Loader from '../elements/Loader';
 import InfoModal from '../elements/InfoModal';
 import { StyledModalContainer } from './OrdersWithMutation';
+import useUser from '../auth/User';
+import { capitalizeFirstLetter } from '../../lib/capitalizeFirstLetter';
 
 const MyTutorials = ({ classProp, children }) => {
+  const user = useUser();
   // TODO change error
   const { data, error, loading } = useQuery(USER_PRODUCTS_QUERY);
   if (loading) return <Loader />;
@@ -34,18 +38,26 @@ const MyTutorials = ({ classProp, children }) => {
     );
   }
   return (
-    <StyledArticle className={classProp}>
-      {children}
-      <StyledTutorialsArticle>
-        {mergedTutorials.map((tutorial, idx) => (
-          <TutorialDetail
-            slug={tutorial.slug}
-            id={tutorial.id}
-            key={tutorial.id + idx}
-          />
-        ))}
-      </StyledTutorialsArticle>
-    </StyledArticle>
+    <>
+      <Head>
+        {/* now the tab will say exactly what's in the title instead of just something random */}
+        <title>
+          Hello Tutorials | {user && capitalizeFirstLetter(user)}'s Tutorials
+        </title>
+      </Head>
+      <StyledArticle className={classProp}>
+        {children}
+        <StyledTutorialsArticle>
+          {mergedTutorials.map((tutorial, idx) => (
+            <TutorialDetail
+              slug={tutorial.slug}
+              id={tutorial.id}
+              key={tutorial.id + idx}
+            />
+          ))}
+        </StyledTutorialsArticle>
+      </StyledArticle>
+    </>
   );
 };
 

@@ -28,6 +28,7 @@ const Product = ({ product }) => {
 
   return (
     <StyledCard isFocused={isFocused}>
+      <p>{product.id}</p>
       <Link href={`/tutorial/${product.slug}`}>
         <StyledCardLink
           onMouseOver={() => setIsFocused(true)}

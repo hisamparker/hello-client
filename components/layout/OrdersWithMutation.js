@@ -40,7 +40,7 @@ const OrdersWithMutation = ({ notPage, classProp }) => {
       {!notPage && (
         <Head>
           <title>
-            {orderData.name} ({orderData.length}) orders
+            {user.name}'s ({orderData.length}) orders
           </title>
         </Head>
       )}

@@ -1,27 +1,36 @@
 import styled from 'styled-components';
+import Head from 'next/head';
 import useUser from '../auth/User';
 import OrdersWithMutation, { StyledModalContainer } from './OrdersWithMutation';
 import UserDetail from './UserDetail';
 import RequestReset from '../auth/RequestReset';
 import MyTutorials from './MyTutorials';
 import InfoModal from '../elements/InfoModal';
+import { capitalizeFirstLetter } from '../../lib/capitalizeFirstLetter';
 
 const Account = () => {
   const user = useUser();
+  const userName = capitalizeFirstLetter(user);
   return !user ? (
     <StyledModalContainer>
       <InfoModal message="Hey, you don't have an account, why you here?" />
     </StyledModalContainer>
   ) : (
-    <StyledContainer>
-      <StyledTitle>Hello {user.name}!</StyledTitle>
-      <UserDetail user={user} classProp="account" />
-      <RequestReset classProp="password" />
-      <MyTutorials classProp="tutorials">
-        <h2>My Tutorials</h2>
-      </MyTutorials>
-      <OrdersWithMutation notPage classProp="orders" />
-    </StyledContainer>
+    <>
+      <Head>
+        {/* now the tab will say exactly what's in the title instead of just something random */}
+        <title>Hello Tutorials | {userName}'s Account</title>
+      </Head>
+      <StyledContainer>
+        <StyledTitle>Hello {user.name}!</StyledTitle>
+        <UserDetail user={user} classProp="account" />
+        <RequestReset classProp="password" />
+        <MyTutorials classProp="tutorials">
+          <h2>My Tutorials</h2>
+        </MyTutorials>
+        <OrdersWithMutation notPage classProp="orders" />
+      </StyledContainer>
+    </>
   );
 };
 
