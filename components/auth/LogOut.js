@@ -20,14 +20,7 @@ const LogOut = () => {
     try {
       await logOut();
       router.push('/');
-      snackbar.setSnackbarMessage(`Later ${capitalizeFirstLetter(user)}`);
-      snackbar.openSnackbar();
-      let timer = '';
-      new Promise(() => {
-        timer = setTimeout(() => {
-          snackbar.closeSnackbar();
-        }, 3000);
-      }).then(() => () => clearTimeout(timer));
+      snackbar.snackbarFlow(`Later ${capitalizeFirstLetter(user)}`);
     } catch (err) {
       console.log(err);
     }

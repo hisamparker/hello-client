@@ -30,17 +30,10 @@ const Reset = ({ token }) => {
     e.preventDefault(); // stop the form from submitting
     try {
       const res = await resetPassword();
-      snackbar.setSnackbarMessage(`Yay! You're good to log in.`);
-      snackbar.openSnackbar();
+      snackbar.snackbarFlow(`Yay! You're good to log in.`);
       resetForm();
       router.push('/log-in');
       console.log(res);
-      let timer = '';
-      new Promise(() => {
-        timer = setTimeout(() => {
-          snackbar.closeSnackbar();
-        }, 3000);
-      }).then(() => () => clearTimeout(timer));
       // Send the email and password to the graphqlAPI
     } catch (err) {
       setIsError(true);

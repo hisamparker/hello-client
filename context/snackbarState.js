@@ -28,9 +28,22 @@ function SnackbarStateProvider({ children }) {
     setSnackbarOpen(true);
   }
 
+  // entire snackbar flow
+  function snackbarFlow(message) {
+    setSnackbarMessage(message);
+    openSnackbar();
+    let timer = '';
+    new Promise(() => {
+      timer = setTimeout(() => {
+        closeSnackbar();
+      }, 3000);
+    }).then(() => () => clearTimeout(timer));
+  }
+
   return (
     <LocalStateProvider
       value={{
+        snackbarFlow,
         snackbarMessage,
         setSnackbarMessage,
         snackbarOpen,

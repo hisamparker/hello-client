@@ -89,7 +89,7 @@ const CheckoutForm = () => {
       });
       // Push to order page
       router.push({
-        pathname: `/order/[id]`,
+        pathname: `/my-tutorials`,
         query: {
           id: order.data.checkout.id,
         },
@@ -97,14 +97,7 @@ const CheckoutForm = () => {
       closeCart();
       setLoading(false);
       nProgress.done();
-      snackbar.setSnackbarMessage(`Yay! Time to learn!`);
-      snackbar.openSnackbar();
-      let timer = '';
-      new Promise(() => {
-        timer = setTimeout(() => {
-          snackbar.closeSnackbar();
-        }, 3000);
-      }).then(() => () => clearTimeout(timer));
+      snackbar.snackbarFlow(`Yay! Time to learn!`);
     } catch (err) {
       console.log(err);
     }

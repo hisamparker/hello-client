@@ -60,16 +60,9 @@ const SignUp = () => {
         await login();
         router.push('/');
         // Send the email and password to the graphqlAPI
-        snackbar.setSnackbarMessage(
+        snackbar.snackbarFlow(
           `Hey! welcome to hello tutorials ${capitalizeFirstLetter(inputs)}`
         );
-        snackbar.openSnackbar();
-        let timer = '';
-        new Promise(() => {
-          timer = setTimeout(() => {
-            snackbar.closeSnackbar();
-          }, 3000);
-        }).then(() => () => clearTimeout(timer));
       }
     } catch (err) {
       setIsError(true);

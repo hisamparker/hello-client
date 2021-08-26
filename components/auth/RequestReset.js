@@ -28,25 +28,21 @@ const RequestReset = ({ classProp }) => {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
   });
-  const [signup, { loading }] = useMutation(REQUEST_RESET_MUTATION, {
-    variables: inputs,
-  });
+  const [requestReset, { loading, error, data }] = useMutation(
+    REQUEST_RESET_MUTATION,
+    {
+      variables: { email: inputs.email },
+    }
+  );
   const handleSubmit = async (e) => {
     try {
       e.preventDefault(); // stop the form from submitting
-      const res = await signup();
+      const res = await requestReset();
       console.log(res);
       resetForm();
-      snackbar.setSnackbarMessage(
+      snackbar.snackbarFlow(
         `Success! We've sent a reset link to ${res.email}!`
       );
-      snackbar.openSnackbar();
-      let timer = '';
-      new Promise(() => {
-        timer = setTimeout(() => {
-          snackbar.closeSnackbar();
-        }, 3500);
-      }).then(() => () => clearTimeout(timer));
     } catch (err) {
       setIsError(true);
       setErrorMessage(
@@ -75,6 +71,7 @@ const RequestReset = ({ classProp }) => {
             <StyledInput
               type="email"
               name="email"
+              id="email"
               placeholder="Your Email Address"
               autoComplete="email"
               value={inputs.email}

@@ -18,15 +18,8 @@ const AddToCart = ({ id, isMatch, purchased, slug }) => {
   });
   const router = useRouter();
   const handleLoginUser = () => {
-    snackbar.setSnackbarMessage('You need to log in to add items to your cart');
-    snackbar.openSnackbar();
+    snackbar.snackbarFlow(`You need to log in to add items to your cart`);
     router.push('/log-in');
-    let timer = '';
-    new Promise(() => {
-      timer = setTimeout(() => {
-        snackbar.closeSnackbar();
-      }, 3000);
-    }).then(() => () => clearTimeout(timer));
   };
   const handleAddToCart = () => {
     addToCart();
