@@ -27,8 +27,8 @@ const gitTutorial = () => {
   const code = `let text = "";
   let i = 0;
   while (i < 5) {
-    // eslint-disable-next-line no-irregular-whitespace
-    text += "<br>The number is " + i;
+    text += 
+    "The number is " + i;
     i++;
     if (i === 3) {
       break;
@@ -170,8 +170,11 @@ for (i = 0; i < 5; i++) {
           <StyledP>
             That's why Git is pretty great for working independently together!
           </StyledP>
-          <br />
           <h2>Distributed Version Control</h2>
+          <StyledP>
+            Before you start interacting with Git, it's nice to have a way to
+            visualize how it lives on your machine.
+          </StyledP>
           <figure>
             <Image
               src="/git-diagram-1.png"
@@ -180,9 +183,8 @@ for (i = 0; i < 5; i++) {
               width="1387"
             />
             <StyledFigCaption>
-              The diagram shows 4 'areas' that your code can live in when you're
-              using Git. These areas are divided between server and dev
-              environment.
+              The diagram shows 4 'areas' where your code exists in relation to
+              Git. These areas are divided between server and dev environment.
             </StyledFigCaption>
           </figure>
           <h2>Where Your Code Lives in Git:</h2>
@@ -198,11 +200,17 @@ for (i = 0; i < 5; i++) {
               <li>Local Repository</li>
             </StyledUl>
           </StyledUl>
-          Let's go over each area, why it exists and how / when you'll use it!
-          <h2>Local Repository</h2>
+          <StyledP>
+            We'll reference this diagram throught the tutorial and explain the
+            areas as we go.
+          </StyledP>
+          <h2>Ok, let's do some actual developer stuff!</h2>
+          <h3>
+            Step 1: Create a <strong>Git repository</strong>
+          </h3>
           <StyledP>
             To use Git for a new project on your local machine, you need to
-            create a new repository ('repo', for short).
+            create a new local repository ('repo', for short).
           </StyledP>
           <br />
           <StyledP>
@@ -219,17 +227,35 @@ for (i = 0; i < 5; i++) {
             Cool, ok open up a terminal and create a new project folder:
           </StyledP>
           <Code language="vim" code="$ mkdir myFirstGitRepo;" />
+          <StyledP>
+            This folder is where we initialize Git, also called the{' '}
+            <strong>working directory!</strong>
+          </StyledP>
+          <figure>
+            <Image
+              src="/git-diagram-2-working-directory.png"
+              alt="distributed version control diagram emphasis on working directory"
+              height="393"
+              width="1182"
+            />
+            <StyledFigCaption>
+              The folder where we initialize Git is our working directory
+            </StyledFigCaption>
+          </figure>
           <StyledP>Now, navigate into your new project folder:</StyledP>
           <Code language="vim" code="$ cd myFirstGitRepo;" />
+          <br />
           <StyledP>And, create a Git repo!</StyledP>
           <Code language="vim" code="$ git init" />
+          <br />
           <StyledP>Ok, but nothing happened ¯_(ツ)_/¯</StyledP>
           <br />
           <StyledP>
-            Let's look at allll our files, maybe we'll see something? (The ls
+            Let's look at allll our files, maybe we'll see something? The ls
             command will list the files in your directory (folder):
           </StyledP>
           <Code language="vim" code="$ ls" />
+          <br />
           <StyledP>
             Hella nope. Git files are dot files, basically, the file name starts
             with a dot.
@@ -242,17 +268,154 @@ for (i = 0; i < 5; i++) {
           <br />
           <StyledP>
             -a is an option flag that indicates you want to list all files, even
-            the hidden ones. Give it a try::
+            the hidden ones. Give it a try:
           </StyledP>
           <Code language="vim" code="$ ls -a" />
+          <br />
           <StyledP>
-            Now, you should see a .git folder listed in your terminal.
+            Now, you should see a .git folder listed in your terminal. Git is
+            initialized in this folder, the working directory, and is now aware
+            of all the files it contains.
           </StyledP>
-          <h2>While loops!</h2>
-          <h3>
-            A "While" Loop is used to repeat a specific block of code an unknown
-            number of times, until a condition is met.
-          </h3>
+          <h3>Step 2: Add a new file to the repo</h3>
+          <StyledP>
+            We're working in terminal, so to add a new file, use the touch
+            command:
+          </StyledP>
+          <Code language="vim" code="$touch git-is-fun.txt" />
+          <br />
+          <StyledP>
+            Git will notice that you created a file, but won't add it to your
+            local repo unless you explicitly tell it to! Computers are not great
+            at hints ᕕ(⌐■_■)ᕗ
+          </StyledP>
+          <br />
+          <StyledP>
+            It's always a good idea to check what's up with Git regularly. The
+            git status command shows you the files Git knows exist
+          </StyledP>
+          <br />
+          <StyledP>Let's try it:</StyledP>
+          <Code
+            language="vim"
+            code={`$ git status
+            
+On branch master
+
+Initial commit
+
+Untracked files:
+(use "git add <file>..." to include in what will be committed)
+
+git-is-fun.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+`}
+          />
+          <StyledP>
+            Git noticed you added a file, but can't do anything with it until
+            you use the git add command.
+          </StyledP>
+          <h3>Step 3: Staging with git add</h3>
+          <StyledP>
+            If you want Git to track a file, you need to add it to the{' '}
+            <strong>staging environment</strong>.
+          </StyledP>
+          <br />
+          <StyledP>Let's stage our file:</StyledP>
+          <Code language="vim" code="$ git add git-is-fun.txt" />
+          <figure>
+            <Image
+              src="/git-diagram-3-staging-area.png"
+              alt="distributed version control diagram emphasis on working directory"
+              height="393"
+              width="1182"
+            />
+            <StyledFigCaption>
+              Our file is now in the staging area.
+            </StyledFigCaption>
+          </figure>
+          <StyledP>
+            The staging step may seem like an annoying extra step, but because
+            we often don't want Git to track every file in our project
+            directory, explicitly stating which files we want Git to track is
+            super useful, especially when we're working on multiple features at
+            once.
+          </StyledP>
+          <StyledBlockQuote>
+            <h3>3 Ways to Git Add:</h3>
+            <ul>
+              <li>
+                <strong>$ git add -A : </strong>The -A option is short for all,
+                this will stage all files in your repo
+              </li>
+              <strong>$ git add . : </strong> This command stages all files in
+              your <i>current</i> directory, <i>not</i> the subdirectories like
+              with -A!
+              <li>
+                <strong>$ git add [file name] : </strong> This command specifies
+                that you only want to add the named file.
+              </li>
+            </ul>
+          </StyledBlockQuote>
+          Yay, now Git is tracking our file! But, it's not being saved
+          anywhere...
+          <h3>Step 4: Committing with git commit</h3>
+          <StyledP>
+            Now that Git is tracking our file, we can add it to our local Git
+            repo. This is where the magic of Git actually happens.
+          </StyledP>
+          <br />
+          <StyledP>
+            Commit is similar to save, but a bit more nuanced. A traditional
+            save overwrites the previous content. A commit saves a copy of the
+            current state of your project to your local repository
+          </StyledP>
+          <br />
+          <StyledP>
+            This is particularly cool because if future you totally messes up
+            the code and creates a life destroying bug, you can always go back
+            to a working copy of your project.
+          </StyledP>
+          <br />
+          <StyledP>
+            So, commit often to make roll back easy breazy / less of a
+            nightmare.
+          </StyledP>
+          <br />
+          <StyledP>
+            The difference between committing and saving is what makes Git a
+            version control software.
+          </StyledP>
+          <br />
+          <StyledP>Let's commit!</StyledP>
+          <br />
+          <StyledP>
+            Run the git commit command followed by the -m flag and a comment
+            explaining what you're committing:
+          </StyledP>
+          <Code language="vim" code='$ git commit -m "My first commit"' />
+          <br />
+          <StyledP>
+            Adding a detailed comment will help you remember what you did for
+            this commit in case you do need to roll back your code. And, if
+            you're working on a team, your comments help everyone understand
+            what the commit is about.
+          </StyledP>
+          <figure>
+            <Image
+              src="/git-diagram-4-local-repo.png"
+              alt="distributed version control diagram emphasis on working directory"
+              height="393"
+              width="1182"
+            />
+            <StyledFigCaption>
+              Our file is now in the staging area.
+            </StyledFigCaption>
+          </figure>
+          <StyledP>This is the basic flow of </StyledP>
+          <br />
           <ul>
             <li>Use a while loop when asking for user input.</li>
             <li>Use a while loop when the increment value is nonstandard.</li>
