@@ -1,4 +1,4 @@
-import UpdateProduct from '../components/layout/UpdateProduct';
+import UpdateProduct from '../components/FutureComponents/UpdateProduct';
 
 const updateProductPage = ({ query }) => {
   console.log(query);

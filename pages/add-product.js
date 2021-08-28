@@ -1,4 +1,4 @@
-import { CreateProduct } from '../components/layout/CreateProduct';
+import { CreateProduct } from '../components/FutureComponents/CreateProduct';
 
 const addProduct = () => (
   <div>
