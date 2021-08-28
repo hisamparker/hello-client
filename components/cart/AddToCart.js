@@ -33,6 +33,9 @@ const AddToCart = ({ id, isMatch, purchased, slug }) => {
     if (loading) {
       return 'Adding to Cart';
     }
+    if (!user) {
+      return 'Login to Purchase ';
+    }
     return 'Add to Cart';
   };
 
@@ -45,7 +48,7 @@ const AddToCart = ({ id, isMatch, purchased, slug }) => {
       ) : (
         <Button
           variant="primary"
-          disabled={loading || isMatch}
+          disabled={loading || isMatch || !user}
           onClick={user ? handleAddToCart : handleLoginUser}
         >
           {handleButtonMessage()}

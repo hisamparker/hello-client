@@ -45,7 +45,7 @@ const Reset = ({ token }) => {
         timer = setTimeout(() => {
           setIsError(false);
           setErrorMessage('');
-        }, 4000);
+        }, 5000);
       }).then(() => () => clearTimeout(timer));
       resetForm();
     }
@@ -53,7 +53,7 @@ const Reset = ({ token }) => {
   return (
     <form method="POST" onSubmit={handleSubmit}>
       {isError && isErrorMessage && (
-        <ErrorMessage errorMessage={isErrorMessage} />
+        <ErrorMessage close={setIsError} errorMessage={isErrorMessage} />
       )}
       <h2>Reset Your Password</h2>
       <fieldset>

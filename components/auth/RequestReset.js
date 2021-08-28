@@ -28,12 +28,9 @@ const RequestReset = ({ classProp }) => {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
   });
-  const [requestReset, { loading, error, data }] = useMutation(
-    REQUEST_RESET_MUTATION,
-    {
-      variables: { email: inputs.email },
-    }
-  );
+  const [requestReset, { loading }] = useMutation(REQUEST_RESET_MUTATION, {
+    variables: { email: inputs.email },
+  });
   const handleSubmit = async (e) => {
     try {
       e.preventDefault(); // stop the form from submitting
@@ -53,7 +50,7 @@ const RequestReset = ({ classProp }) => {
         timer = setTimeout(() => {
           setIsError(false);
           setErrorMessage('');
-        }, 4000);
+        }, 5000);
       }).then(() => () => clearTimeout(timer));
       resetForm();
     }
@@ -62,7 +59,7 @@ const RequestReset = ({ classProp }) => {
     <article className={classProp}>
       <StyledForm method="POST" onSubmit={handleSubmit}>
         {isError && isErrorMessage && (
-          <ErrorMessage errorMessage={isErrorMessage} />
+          <ErrorMessage close={setIsError} errorMessage={isErrorMessage} />
         )}
         <h2>Request a Password Reset</h2>
         <StyledFieldset>

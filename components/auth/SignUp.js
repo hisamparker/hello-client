@@ -74,7 +74,7 @@ const SignUp = () => {
         timer = setTimeout(() => {
           setIsError(false);
           setErrorMessage('');
-        }, 4000);
+        }, 5000);
       }).then(() => () => clearTimeout(timer));
       resetForm();
     }
@@ -88,7 +88,7 @@ const SignUp = () => {
       <StyledWrapper>
         <StyledForm method="POST" onSubmit={handleSubmit}>
           {isError && isErrorMessage && (
-            <ErrorMessage errorMessage={isErrorMessage} />
+            <ErrorMessage close={setIsError} errorMessage={isErrorMessage} />
           )}
           <h2>Sign Up For an Account</h2>
           <StyledFieldset>

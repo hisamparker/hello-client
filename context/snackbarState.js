@@ -27,7 +27,6 @@ function SnackbarStateProvider({ children }) {
   function openSnackbar() {
     setSnackbarOpen(true);
   }
-
   // entire snackbar flow
   function snackbarFlow(message) {
     setSnackbarMessage(message);

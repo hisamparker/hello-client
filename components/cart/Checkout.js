@@ -63,7 +63,7 @@ const CheckoutForm = () => {
           errorTimer = setTimeout(() => {
             setIsError(false);
             setErrorMessage('');
-          }, 4000);
+          }, 5000);
         }).then(() => () => clearTimeout(errorTimer));
         nProgress.done(); // stops progress bar
         return; // stops the checkout from happening if there's an error
@@ -76,7 +76,7 @@ const CheckoutForm = () => {
           errorTimer = setTimeout(() => {
             setIsError(false);
             setErrorMessage('');
-          }, 4000);
+          }, 5000);
         }).then(() => () => clearTimeout(errorTimer));
         nProgress.done(); // stops progress bar
         return; // stops the checkout from happening if there's an error
@@ -106,7 +106,7 @@ const CheckoutForm = () => {
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
       {isError && isErrorMessage && (
-        <ErrorMessage errorMessage={isErrorMessage} />
+        <ErrorMessage close={setIsError} errorMessage={isErrorMessage} />
       )}
       <CardElement />
       <Button variant="primary" disabled={loading} type="submit">

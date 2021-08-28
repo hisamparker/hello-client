@@ -10,7 +10,6 @@ import { capitalizeFirstLetter } from '../../lib/capitalizeFirstLetter';
 
 const Account = () => {
   const user = useUser();
-  const userName = capitalizeFirstLetter(user);
   return !user ? (
     <StyledModalContainer>
       <InfoModal message="Hey, you don't have an account, why you here?" />
@@ -19,10 +18,10 @@ const Account = () => {
     <>
       <Head>
         {/* now the tab will say exactly what's in the title instead of just something random */}
-        <title>Hello Tutorials | {userName}'s Account</title>
+        <title>Hello Tutorials | {capitalizeFirstLetter(user)}'s Account</title>
       </Head>
       <StyledContainer>
-        <StyledTitle>Hello {user.name}!</StyledTitle>
+        <StyledTitle>Hello {capitalizeFirstLetter(user)}!</StyledTitle>
         <UserDetail user={user} classProp="account" />
         <RequestReset classProp="password" />
         <MyTutorials classProp="tutorials">

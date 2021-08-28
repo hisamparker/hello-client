@@ -24,25 +24,6 @@ const gitTutorial = () => {
       // if the array (cart) contains an object with a value that matches the itemId, return true, then pass ismatch to addtccart component and if true, add to cart is disabled for that item
       user.cart.some((item) => item.product.id === itemId);
   }
-  const code = `let text = "";
-  let i = 0;
-  while (i < 5) {
-    text += 
-    "The number is " + i;
-    i++;
-    if (i === 3) {
-      break;
-    }
-  }`;
-
-  const code2 = `var text = "";
-var i;
-for (i = 0; i < 5; i++) {
-  if (i % 3 ===0) {
-      continue;
-    }
-  text += "The number is " + i + "<br>";
-}`;
   if (!isAlreadyPurchased(user, tutorialData, '610be8cf39197ebea7c61420'))
     return (
       <>
@@ -414,72 +395,44 @@ nothing added to commit but untracked files present (use "git add" to track)
               Our file is now in the staging area.
             </StyledFigCaption>
           </figure>
-          <StyledP>This is the basic flow of </StyledP>
+          <StyledP>
+            This is the basic flow when working alone. When working with a team,
+            or with intent to share your code, you need a remote repository.
+          </StyledP>
+          <h3>Step 5: Setting up a Remote Repository</h3>
+          <StyledP>
+            A remote is a repository hosted on the internet. There a bunch of
+            different places that host remote repos, we're going to use GitHub.
+          </StyledP>
           <br />
-          <ul>
-            <li>Use a while loop when asking for user input.</li>
-            <li>Use a while loop when the increment value is nonstandard.</li>
-          </ul>
-          <h3>Example:</h3>
           <StyledP>
-            If we want to ask a user for a number between 1 and 10, we don't
-            know how many times the user may enter a larger number, so we keep
-            asking "while the number is not between 1 and 10".
+            Navigate to{' '}
+            <a href="https://github.com" target="_blank" rel="noreferrer">
+              GitHub
+            </a>{' '}
+            and create an account.
           </StyledP>
-          <h2>For loop vs while loop</h2>
+          <br />
+          <StyledP>Then create a new repository. </StyledP>
+          <br />
           <StyledP>
-            The while loop has a looser syntax and the for loop has a more rigid
-            syntax. A while loop expects some sort of modification to the
-            variable in the body, whereas the for loop’s definition should
-            contain everything.
+            At the time I'm writing this tutorial, you click a green button that
+            says new and has an icon that kind of looks like a book to make a
+            new repo... But it could be different now, so follow the
+            instructions on GitHub.
           </StyledP>
-          <h2>Quick tips</h2>
-          <ul>
-            <li>Use a for loop to iterate over an array.</li>
-            <li>
-              Use a for loop when you know the loop should execute *n* times.
-            </li>
-            <li>Use a while loop for reading a file into a variable.</li>
-            <li>Use a while loop when asking for user input.</li>
-            <li>Use a while loop when the increment value is nonstandard.</li>
-          </ul>
-          <h2>Nested loops</h2>
+          <br />
           <StyledP>
-            Nested loops are loops inside of loops! You can create a loop inside
-            any statement, so it follows that you can create loops inside of
-            loops. Avoid nest loops as much as possible, they slow down code
-            execution (bad code efficiency). And, they make your code harder to
-            read 😞
+            When you click the new repo button, you're prompted to name the
+            repo. After naming it, click the create repository button (don't
+            fuss with the other options).
           </StyledP>
-          <h2>Manipulating loops</h2>
+          <br />
           <StyledP>
-            You can end a loop early, or skip iterations by using the **break**
-            and **continue** statements respectively.
+            After creating your remote repo, GitHub gives you the exact commands
+            you need to follow to get your project online.
           </StyledP>
-          <h2>Break</h2>
-          <StyledP>
-            The break statement exits a switch statement or a loop (for, for ...
-            in, while, do ... while). When the break statement is used in a
-            loop, it breaks the loop and continues executing the code after the
-            loop (if any).
-          </StyledP>
-          <h3>Syntax:</h3>
-          <Code language="markup" code="break;" />
-          <h3>Example:</h3>
-          <Code language="js" code={code} />
-          <StyledP>
-            The loop will stop when the variable i is equal to 3.
-          </StyledP>
-          <h2>Continue</h2>
-          <StyledP>
-            The continue statement skips an iteration and continues on to the
-            next. Use continue combined with a condition.
-          </StyledP>
-          <h3>Example:</h3>
-          <Code language="js" code={code2} />
-          <StyledP>
-            Loops through a block of code, but skips multiple of 3.
-          </StyledP>
+          <br />
         </StyledContent>
       </StyledGridContainer>
     </>

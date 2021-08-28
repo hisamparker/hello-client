@@ -56,7 +56,7 @@ const LogIn = () => {
           timer = setTimeout(() => {
             setIsError(false);
             setErrorMessage('');
-          }, 4000);
+          }, 5000);
         }).then(() => () => clearTimeout(timer));
       }
       resetForm();
@@ -83,7 +83,10 @@ const LogIn = () => {
       </Head>
       <StyledForm method="POST" onSubmit={handleSubmit}>
         {isError && isErrorMessage && (
-          <ErrorMessage errorMessage={isErrorMessage} />
+          <ErrorMessage
+            close={() => setIsError()}
+            errorMessage={isErrorMessage}
+          />
         )}
         <h2>Log In</h2>
         <StyledFieldset>
