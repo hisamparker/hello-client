@@ -74,7 +74,7 @@ Remember to update the config file with your correct endpoint (URL). Let netlify
 
 You won't be able to log in, sign up, etc... without a custom domain and that part is a pain in the tits.
 
-My custom domain is a Google domain. You must set up the correct [resource records] (https://support.google.com/domains/answer/3251147?hl=en) for your domain. In netlify, follow the steps to add a custom domain laid out in their docs (this type of stuff changes all the time, so I'm not going to give exact steps, you can always email me for help!) When your   
+My custom domain is a Google domain. You must set up the correct [resource records] (https://support.google.com/domains/answer/3251147?hl=en) for your domain. In netlify, follow the steps to add a custom domain laid out in their docs (this type of stuff changes all the time, so I'm not going to give exact steps, you can always email me for help!) You'll need a  0 issue "letsencrypt.org" cert and a 0 issue "digicert.com" (backend)   
 
 ## Playlist
 
@@ -84,4 +84,4 @@ I like music when coding - [hello client playlist](https://open.spotify.com/play
 
 - Martin Toledo ╰(✿˙ᗜ˙)੭━☆ﾟ.*･｡ﾟ I could not have figured out my toml and yaml without your help and also you are the best and so fun and so cool
 - Leif Parker (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ I could not have figured out custom domain things without your super annoying help you are myy best friend ever and also v annoying and also v cool
-- Yong Lee ✿*☆∗˵╰༼✪ᗜ✪༽╯˵∗☆*✿ Who also helped me figure out deployment and that I needed a digicert, which I really really did and who I don't actually know ver well, but seems very kind and thoughtful
+- Yong Lee (✿ ◕ᗜ◕)━♫.*･｡ﾟ Who also helped me figure out deployment and that I needed a digicert, which I really really did and who I don't actually know ver well, but seems very kind and thoughtful
