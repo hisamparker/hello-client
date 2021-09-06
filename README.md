@@ -66,7 +66,7 @@ Go to [http://localhost:7777](http://localhost:7777) for the Next.js application
 
 ## Deployment
 
-I deployed the front end to netlify, although vercel would also be an excellent choice. 
+I deployed the front end to netlify, although vercel would also be an excellent choice. Probably a better choice.
 
 You'll need the netlify.toml file to prevent cors issues, I've included a vercel.json file too in case you go with vercel ᕙ⁞ = 〰 = ⁞ᕗ
 
