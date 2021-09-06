@@ -111,6 +111,7 @@ const CheckoutForm = () => {
       <CardElement />
       <Button variant="primary" disabled={loading} type="submit">
         Check Out
+        <p>{process.env.STRIPE}!!!</p>
       </Button>
     </CheckoutFormStyles>
   );
@@ -122,7 +123,6 @@ const Checkout = () => (
   <Elements stripe={stripePromise}>
     {/* we're using stripe elements in the form, but they need to be wrapped in the provider so we put it inside the checkout component */}
     <CheckoutForm />
-    <p>{process.env.STRIPE}</p>
   </Elements>
 );
 
