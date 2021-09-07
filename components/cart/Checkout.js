@@ -111,7 +111,6 @@ const CheckoutForm = () => {
       <CardElement />
       <Button variant="primary" disabled={loading} type="submit">
         Check Out
-        <p>{process.env.STRIPE}!!!</p>
       </Button>
     </CheckoutFormStyles>
   );
