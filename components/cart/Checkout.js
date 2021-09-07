@@ -26,7 +26,7 @@ import ErrorMessage from '../elements/ErrorMessage';
 // pass our stripe key into loadStripe, then we'll pass it to the stripe Element provider
 // we call loadStripe outside of component so that we don't call it on everyrender
 // we still need to pass the variable token, but we don't have it yet, so we need to pass it when we call the mutation
-const stripePromise = loadStripe(process.env.STRIPE);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 const CheckoutForm = () => {
   const [isError, setIsError] = useState(false);
