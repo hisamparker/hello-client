@@ -7,14 +7,12 @@ const AccountDropdown = ({ children }) => {
   const [isTouched, setIsTouched] = useState(false);
 
   const handleTouch = () => {
-    setIsTouched(!isTouched);
+    setIsTouched((prevState) => !prevState);
   };
   return (
     <>
       <Circle onClick={handleTouch}>
-        <StyledInitial onTouchStart={handleTouch}>
-          {user && user.name && user.name[0]}
-        </StyledInitial>
+        <StyledInitial>{user && user.name && user.name[0]}</StyledInitial>
         <StyledMenu onClick={handleTouch} isTouched={isTouched} role="list">
           {children}
         </StyledMenu>
