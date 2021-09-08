@@ -120,7 +120,7 @@ const StyledLoggedOutA = styled.a`
   }
 `;
 const TutorialsLink = styled(StyledLoggedOutA)`
-  @media (max-width: 390px) {
+  @media (max-width: 400px) {
     display: none;
   }
 `;
