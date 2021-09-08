@@ -11,15 +11,11 @@ const AccountDropdown = ({ children }) => {
   };
   return (
     <>
-      <Circle onTouchStart={handleTouch}>
+      <Circle onClick={handleTouch}>
         <StyledInitial onTouchStart={handleTouch}>
           {user && user.name && user.name[0]}
         </StyledInitial>
-        <StyledMenu
-          onTouchStart={handleTouch}
-          isTouched={isTouched}
-          role="list"
-        >
+        <StyledMenu onClick={handleTouch} isTouched={isTouched} role="list">
           {children}
         </StyledMenu>
       </Circle>
