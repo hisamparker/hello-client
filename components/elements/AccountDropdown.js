@@ -4,16 +4,22 @@ import useUser from '../auth/User';
 
 const AccountDropdown = ({ children }) => {
   const user = useUser();
-  const [isTouched, setIsTouched] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleTouch = () => {
-    setIsTouched((prevState) => !prevState);
+    setIsClicked((prevState) => !prevState);
   };
   return (
     <>
-      <Circle onClick={handleTouch}>
+      <Circle
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={handleTouch}
+        isHovered={isHovered}
+      >
         <StyledInitial>{user && user.name && user.name[0]}</StyledInitial>
-        <StyledMenu onClick={handleTouch} isTouched={isTouched} role="list">
+        <StyledMenu onClick={handleTouch} isClicked={isClicked} role="list">
           {children}
         </StyledMenu>
       </Circle>
@@ -28,10 +34,11 @@ const Circle = styled.article`
   position: relative;
   background-color: var(--Primary);
   z-index: 4;
-  &:hover,
-  &:focus {
-    background-color: var(--PrimaryDark);
-  }
+  ${({ isHovered }) =>
+    isHovered &&
+    css`
+      background-color: var(--PrimaryDark);
+    `};
 `;
 const StyledInitial = styled.div`
   font-size: 3rem;
@@ -52,8 +59,8 @@ const StyledMenu = styled.section`
   display: none;
   background-color: white;
   border: 1px solid var(--Primary);
-  ${({ isTouched }) =>
-    isTouched &&
+  ${({ isClicked }) =>
+    isClicked &&
     css`
       display: block;
     `};
