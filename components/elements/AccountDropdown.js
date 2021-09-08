@@ -28,6 +28,10 @@ const Circle = styled.article`
   position: relative;
   background-color: var(--Primary);
   z-index: 4;
+  &:hover,
+  &:focus {
+    background-color: var(--PrimaryDark);
+  }
 `;
 const StyledInitial = styled.div`
   font-size: 3rem;
@@ -48,14 +52,6 @@ const StyledMenu = styled.section`
   display: none;
   background-color: white;
   border: 1px solid var(--Primary);
-  &:hover,
-  ${Circle}:hover & {
-    display: block;
-  }
-  &:focus,
-  ${Circle}:focus & {
-    display: block;
-  }
   ${({ isTouched }) =>
     isTouched &&
     css`
