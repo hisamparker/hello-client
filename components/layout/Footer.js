@@ -28,7 +28,7 @@ const Footer = () => {
           </StyledLinkSection>
         )}
         <StyledSocialSection>
-          <StyledSocialLink href="https://learn-the-web.algonquindesign.ca/topics/html-semantics-cheat-sheet/">
+          <StyledSocialLink href="https://www.tiktok.com/@alexdwong/video/6973695927152348421?lang=en&is_copy_url=1&is_from_webapp=v1">
             <Image src="/tik-tok.png" alt="tiktok" height="30" width="30" />
           </StyledSocialLink>
           <StyledSocialLink href="https://learn-the-web.algonquindesign.ca/topics/html-semantics-cheat-sheet/">
@@ -36,7 +36,7 @@ const Footer = () => {
           </StyledSocialLink>
         </StyledSocialSection>
         <h1>Hello Tutorials is for People</h1>
-        <sub>Thanks to Zsoka, Dervis, Leif, Cookie, AJ Roos</sub>
+        <sub>Thanks to Martin, Zsoka, Dervis, Leif, Cookie, AJ Roos</sub>
       </StyledFooterContent>
     </StyledFooter>
   );
