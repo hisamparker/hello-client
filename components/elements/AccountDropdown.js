@@ -1,14 +1,21 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
 import useUser from '../auth/User';
 
 const AccountDropdown = ({ children }) => {
   const user = useUser();
+  const [isTouched, setIsTouched] = useState(false);
+
+  const handleTouch = () => {
+    setIsTouched(!isTouched);
+  };
   return (
     <>
-      <Circle>
+      <Circle onTouchStart={handleTouch}>
         <StyledInitial>{user && user.name && user.name[0]}</StyledInitial>
-        <StyledMenu role="list">{children}</StyledMenu>
+        <StyledMenu isTouched={isTouched} role="list">
+          {children}
+        </StyledMenu>
       </Circle>
     </>
   );
@@ -49,6 +56,11 @@ const StyledMenu = styled.section`
   ${Circle}:focus & {
     display: block;
   }
+  ${({ isTouched }) =>
+    isTouched &&
+    css`
+      display: block;
+    `};
   a,
   button {
     line-height: 1em;
